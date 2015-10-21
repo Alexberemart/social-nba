@@ -1,7 +1,7 @@
 package alexberemart.socialNBA.rest;
 
 import Alexberemart.core.rest.AbstractRestService;
-import alexberemart.socialNBA.services.SocialNBAServices;
+import alexberemart.socialNBA.services.TwitServices;
 import twitter4j.TwitterException;
 
 import javax.ws.rs.GET;
@@ -20,7 +20,17 @@ public class TwitService extends AbstractRestService {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getUserFinancialEntries() throws IOException, TwitterException, SQLException {
 
-        SocialNBAServices.getInstance().GetPlayerTwits();
+        TwitServices.getInstance().GetPlayerTwits();
+        return ok("ok");
+
+    }
+
+    @GET
+    @Path("process")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response processTwits() throws IOException, TwitterException, SQLException {
+
+        TwitServices.getInstance().processTwits();
         return ok("ok");
 
     }

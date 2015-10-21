@@ -10,9 +10,21 @@ import java.util.Date;
 @javax.persistence.Entity
 public class Twit extends BaseEntity{
 
-    String playerName;
-    String text;
-    Date date;
+    protected long twitId;
+    protected String playerName;
+    protected String text;
+    protected Date date;
+    protected String lang;
+    protected Integer positiveWords;
+    protected Integer negativeWords;
+
+    public long getTwitId() {
+        return twitId;
+    }
+
+    public void setTwitId(long twitId) {
+        this.twitId = twitId;
+    }
 
     public String getPlayerName() {
         return playerName;
@@ -36,5 +48,29 @@ public class Twit extends BaseEntity{
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getLang() {
+        return lang;
+    }
+
+    public void setLang(String lang) {
+        this.lang = lang;
+    }
+
+    public Integer getPositiveWords() {
+        return positiveWords;
+    }
+
+    public void setPositiveWords(Integer positiveWords) {
+        this.positiveWords = positiveWords;
+    }
+
+    public Integer getNegativeWords() {
+        return negativeWords;
+    }
+
+    public void setNegativeWords(Integer negativeWords) {
+        this.negativeWords = negativeWords;
     }
 }
