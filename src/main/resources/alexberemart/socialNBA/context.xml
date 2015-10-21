@@ -123,11 +123,11 @@
         </property>
     </bean>
 
-    <bean id="socialNBAServices"
-          class="alexberemart.socialNBA.services.SocialNBAServices"/>
-
     <bean id="twitServices"
           class="alexberemart.socialNBA.services.TwitServices"/>
+
+    <!-- FACTORIES -->
+    <bean id="twitFactory" class="alexberemart.socialNBA.model.factories.TwitFactory"/>
 
     <bean id="oauthCredentials" class="alexberemart.socialNBA.model.vo.OauthCredentials">
         <property name="consumerKey" value="${oauth.consumerKey}"/>
