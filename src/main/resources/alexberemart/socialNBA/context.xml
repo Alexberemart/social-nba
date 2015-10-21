@@ -10,7 +10,7 @@
     <import resource="classpath:/Alexberemart/core/context.xml"/>
 
     <!-- Allows us to use system properties as variables in this configuration
-        file -->
+       file -->
     <bean
             class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="ignoreUnresolvablePlaceholders" value="true"/>
@@ -18,12 +18,116 @@
         <property name="locations">
             <list>
                 <value>classpath:alexberemart/socialNBA/twitter4j.properties</value>
+                <value>classpath:alexberemart/socialNBA/socialNBA.properties</value>
             </list>
+        </property>
+    </bean>
+
+    <bean id="dataSourceSocialNBA" class="org.apache.commons.dbcp.BasicDataSource"
+          destroy-method="close">
+        <property name="driverClassName">
+            <value>${socialNBA.datasource.driver}</value>
+        </property>
+        <property name="url">
+            <value>${socialNBA.datasource.url}</value>
+        </property>
+        <property name="username">
+            <value>${socialNBA.datasource.db.username}</value>
+        </property>
+        <property name="password">
+            <value>${socialNBA.datasource.db.password}</value>
+        </property>
+        <property name="testOnBorrow">
+            <value>true</value>
+        </property>
+        <property name="validationQuery">
+            <value>select 1</value>
+        </property>
+    </bean>
+
+    <!-- Hibernate SessionFactory definition -->
+    <bean id="sessionFactorySocialNBA"
+          class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+        <property name="hibernateProperties">
+            <props>
+                <prop key="javax.persistence.validation.mode">NONE</prop>
+                <prop key="hibernate.dialect">${core.hibernate.dialect.classname}</prop>
+                <prop key="hibernate.hbm2ddl.auto">${socialNBA.hibernate.hbm2ddl.auto}</prop>
+                <prop key="hibernate.show_sql">false</prop>
+                <prop key="hibernate.format_sql">true</prop>
+                <prop key="hibernate.use_sql_comments">true</prop>
+                <prop key="hibernate.bytecode.use_reflection_optimizer">true</prop>
+                <prop key="hibernate.cache.provider_class">org.hibernate.cache.HashtableCacheProvider</prop>
+                <prop key="hibernate.cache.use_query_cache">false</prop>
+                <prop key="hibernate.query.substitutions">true 1, false 0</prop>
+                <prop key="hibernate.generate_statistics">true</prop>
+                <!--<prop key="hibernate.connection.useUnicode">true</prop>-->
+                <!--<prop key="hibernate.connection.characterEncoding">utf8mb4</prop>-->
+            </props>
+        </property>
+        <property name="dataSource">
+            <ref bean="dataSourceSocialNBA"/>
+        </property>
+        <property name="packagesToScan" value="${socialNBA.sessionfactory.packagestoscan}"></property>
+    </bean>
+
+    <!-- Hibernate templates definition -->
+    <bean id="hibernateTemplateSocialNBA" class="org.springframework.orm.hibernate3.HibernateTemplate">
+        <property name="sessionFactory">
+            <ref local="sessionFactorySocialNBA"/>
+        </property>
+        <property name="flushModeName">
+            <value>FLUSH_AUTO</value>
+        </property>
+        <property name="allowCreate">
+            <value>true</value>
+        </property>
+        <property name="alwaysUseNewSession">
+            <value>false</value>
+        </property>
+        <property name="cacheQueries">
+            <value>false</value>
+        </property>
+        <property name="queryCacheRegion">
+            <value>dcpQCR</value>
+        </property>
+        <property name="maxResults">
+            <value>10000</value>
+        </property>
+        <property name="fetchSize">
+            <value>10000</value>
+        </property>
+    </bean>
+
+    <bean id="twitDAO"
+          class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager">
+            <ref bean="transactionManager"/>
+        </property>
+        <property name="target">
+            <ref local="twitDAOTarget"/>
+        </property>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="makePersistent">PROPAGATION_REQUIRED</prop>
+                <prop key="find*">PROPAGATION_REQUIRED, readOnly</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="twitDAOTarget"
+          class="alexberemart.socialNBA.model.dao.impl.TwitDAOImpl">
+        <qualifier value="target"/>
+        <property name="hibernateTemplate">
+            <ref bean="hibernateTemplateSocialNBA"/>
         </property>
     </bean>
 
     <bean id="socialNBAServices"
           class="alexberemart.socialNBA.services.SocialNBAServices"/>
+
+    <bean id="twitServices"
+          class="alexberemart.socialNBA.services.TwitServices"/>
 
     <bean id="oauthCredentials" class="alexberemart.socialNBA.model.vo.OauthCredentials">
         <property name="consumerKey" value="${oauth.consumerKey}"/>
