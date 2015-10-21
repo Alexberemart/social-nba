@@ -2,24 +2,15 @@ package alexberemart.socialNBA.services;
 
 import Alexberemart.core.util.ApplicationContextProvider;
 import alexberemart.socialNBA.model.vo.OauthCredentials;
-import oauth.signpost.OAuthConsumer;
-import oauth.signpost.basic.DefaultOAuthConsumer;
-import oauth.signpost.exception.OAuthCommunicationException;
-import oauth.signpost.exception.OAuthExpectationFailedException;
-import oauth.signpost.exception.OAuthMessageSignerException;
-import org.jdom.Document;
-import org.jdom.JDOMException;
-import org.jdom.input.SAXBuilder;
+import alexberemart.socialNBA.model.vo.Twit;
 import org.springframework.beans.factory.annotation.Autowired;
 import twitter4j.*;
 import twitter4j.conf.ConfigurationBuilder;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class SocialNBAServices {
 
@@ -30,7 +21,14 @@ public class SocialNBAServices {
         return (SocialNBAServices) ApplicationContextProvider.getInstance().getBean("socialNBAServices");
     }
 
-    public void sendProtectedRequest(URL url, OauthCredentials credentials) throws TwitterException {
+    public void GetPlayerTwits() throws TwitterException, SQLException {
+
+        List<String> players = new ArrayList<>();
+        players.add("Pau Gasol");
+        players.add("Boris Diaw");
+        players.add("Lebron James");
+        players.add("Ian Mahimi");
+        players.add("Alejandro Berenguer");
 
         // The factory instance is re-useable and thread safe.
         ConfigurationBuilder cb = new ConfigurationBuilder();
@@ -41,14 +39,27 @@ public class SocialNBAServices {
                 .setOAuthAccessTokenSecret(oauthCredentials.getAccessSecretToken());
         TwitterFactory tf = new TwitterFactory(cb.build());
         Twitter twitter = tf.getInstance();
-        Query query = new Query("Pau Gasol");
-        query.setCount(100);
-        //query.setSince("2015-10-19");
-        QueryResult result = twitter.search(query);
-        //for (Status status : result.getTweets()) {
-        //    System.out.println("@" + status.getUser().getScreenName() + ":" + status.getText());
-        //}
-        System.out.println("recogidos un total de " + result.getCount() + " twits");
+
+        for (String playerName : players) {
+            Long start = new Date().getTime();
+            Query query = new Query(playerName);
+            query.setCount(100);
+            query.setSince("2015-10-19");
+            QueryResult result = twitter.search(query);
+            for (Status status : result.getTweets()) {
+                //System.out.println(status.getCreatedAt());
+                //System.out.println("@" + status.getUser().getScreenName() + ":" + status.getText());
+                Twit twit = new Twit();
+                twit.setDate(status.getCreatedAt());
+                twit.setPlayerName(playerName);
+                twit.setText(status.getText());
+                TwitServices.getInstance().saveTwit(twit);
+            }
+            Long end = new Date().getTime();
+            Long gap = end - start;
+            System.out.println("Query Gap " + gap);
+            System.out.println("recogidos un total de " + result.getTweets().size() + " twits para el jugador " + playerName);
+        }
     }
 
 }

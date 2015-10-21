@@ -1,7 +1,5 @@
 package alexberemart.socialNBA.services;
 
-import alexberemart.socialNBA.model.vo.OauthCredentials;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -12,7 +10,7 @@ import twitter4j.TwitterException;
 
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
-import java.net.URL;
+import java.sql.SQLException;
 import java.text.ParseException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -20,24 +18,12 @@ import java.text.ParseException;
         "classpath:/alexberemart/socialNBA/context.xml"
 })
 @Transactional
-public class socialNBAServicesTest
-        extends AbstractTransactionalJUnit4SpringContextTests {
-
-    OauthCredentials credentials = new OauthCredentials();
-
-    @Before
-    public void setUp() throws ParseException, MalformedURLException, URISyntaxException {
-
-
-        credentials.setConsumerKey("AJQS4PJAKWPxfTTgT1Zq6a");
-        credentials.setConsumerSecretKey("dBSy7HNAs4X4UnSeBUlqiAr5hYLLZNtwLIFmZHQ5Nul");
-        credentials.setAccessToken("INNCqCBhXuG8pNST");
-        credentials.setAccessSecretToken("95CbS1jPb4hdHJ2d");
-    }
+public class SocialNBAServicesTest extends AbstractTransactionalJUnit4SpringContextTests {
 
     @Test
-    public void sendProtectedRequest() throws ParseException, MalformedURLException, URISyntaxException, TwitterException {
-        URL url = new URL("https://twitter.com/search?q=%40twitterapi");
-        SocialNBAServices.getInstance().sendProtectedRequest(url, credentials);
+    public void sendProtectedRequest() throws TwitterException, SQLException {
+        SocialNBAServices.getInstance().GetPlayerTwits();
     }
+
+    //RT @NBAHistory: @NBA The champion @Warriors proudly wear 🎯 as they go for ring No. 2 (via @daldridgetnt): https://t.co/0yVKbBbBUe https://t…
 }
