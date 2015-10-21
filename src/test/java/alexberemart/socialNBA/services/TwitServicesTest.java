@@ -8,6 +8,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
+import twitter4j.TwitterException;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -37,5 +38,10 @@ public class TwitServicesTest extends AbstractTransactionalJUnit4SpringContextTe
     public void processTwit() throws SQLException, IOException {
         TwitServices.getInstance().saveTwit(twit);
         TwitServices.getInstance().processTwits();
+    }
+
+    @Test
+    public void getPlayerTwits() throws TwitterException, SQLException {
+        TwitServices.getInstance().getPlayerTwits();
     }
 }

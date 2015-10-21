@@ -91,7 +91,7 @@ public class TwitServices {
         saveTwit(twit);
     }
 
-    public void GetPlayerTwits() throws TwitterException, SQLException {
+    public void getPlayerTwits() throws TwitterException, SQLException {
 
         List<String> players = new ArrayList<>();
         players.add("Pau Gasol");

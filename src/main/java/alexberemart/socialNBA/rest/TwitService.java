@@ -20,7 +20,7 @@ public class TwitService extends AbstractRestService {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getUserFinancialEntries() throws IOException, TwitterException, SQLException {
 
-        TwitServices.getInstance().GetPlayerTwits();
+        TwitServices.getInstance().getPlayerTwits();
         return ok("ok");
 
     }
