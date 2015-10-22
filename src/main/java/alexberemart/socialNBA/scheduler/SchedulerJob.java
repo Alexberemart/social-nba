@@ -6,7 +6,9 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import twitter4j.TwitterException;
 
-//TODO: Esposible mover el fichero de configuración del quartz al paquete que le corresponte?, si lo pones ahi no rula.  http://www.mkyong.com/jsf2/jsf-2-quartz-2-example/
+import java.io.IOException;
+
+//TODO: Es posible mover el fichero de configuración del quartz al paquete que le corresponte?, si lo pones ahi no rula.  http://www.mkyong.com/jsf2/jsf-2-quartz-2-example/
 
 public class SchedulerJob implements Job {
 
@@ -16,7 +18,8 @@ public class SchedulerJob implements Job {
 		System.out.println("JSF 2 + Quartz 2 example");
         try {
             TwitServices.getInstance().getPlayerTwits();
-        } catch (TwitterException e) {
+            TwitServices.getInstance().processTwits();
+        } catch (TwitterException | IOException e) {
             e.printStackTrace();
         }
 
