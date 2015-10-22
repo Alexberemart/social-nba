@@ -13,7 +13,6 @@ import twitter4j.conf.ConfigurationBuilder;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -85,13 +84,13 @@ public class TwitServices {
         return words;
     }
 
-    public void createTwit(Status status, String playerName){
+    public void createTwit(Status status, String playerName) {
         Twit twit = twitFactory.createTwit(status);
         twit.setPlayerName(playerName);
         saveTwit(twit);
     }
 
-    public void getPlayerTwits() throws TwitterException, SQLException {
+    public void getPlayerTwits() throws TwitterException {
 
         List<String> players = new ArrayList<>();
         players.add("Pau Gasol");
@@ -112,9 +111,17 @@ public class TwitServices {
 
         for (String playerName : players) {
             Long start = new Date().getTime();
+
             Query query = new Query(playerName);
             query.setCount(100);
-            query.setSince("2015-10-19");
+            //query.setSince("2015-10-19");
+
+            Twit lastTwit = getLastTwitById(playerName);
+            if (lastTwit != null) {
+                System.out.println("Last twit " + lastTwit.getDate());
+                query.setSinceId(lastTwit.getTwitId());
+            }
+
             QueryResult result = twitter.search(query);
             for (Status status : result.getTweets()) {
                 TwitServices.getInstance().createTwit(status, playerName);
@@ -124,5 +131,9 @@ public class TwitServices {
             System.out.println("Query Gap " + gap);
             System.out.println("recogidos un total de " + result.getTweets().size() + " twits para el jugador " + playerName);
         }
+    }
+
+    public Twit getLastTwitById(String playerName) {
+        return twitDAO.getLastTwitById(playerName);
     }
 }
