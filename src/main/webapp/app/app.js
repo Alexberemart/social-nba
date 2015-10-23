@@ -1,17 +1,8 @@
-angular.module('myApp', [ 'ui.router'])
+angular.module('myApp', [ 'ui.router', 'app.Controllers', 'app.Factory'])
 
     .config(['$stateProvider', function ($stateProvider) {
 
         $stateProvider
-            .state('login', {
-                url: '/login',
-                views: {
-                    content: {
-                        templateUrl: 'app/Login/index1.html',
-                        controller: 'index2'
-                    }
-                }
-            })
             .state('dashboard', {
                 url: '/dashboard',
                 abstract: true,   //marca este estado como no navegable.
@@ -25,4 +16,17 @@ angular.module('myApp', [ 'ui.router'])
                     }
                 }
             })
+            .state('dashboard.main', {
+                url: '/main',
+                views: {
+                    dashboardContent: {
+                        templateUrl: 'app/main/main.html',
+                        controller: 'index2'
+                    }
+                }
+            })
+    }])
+
+    .config(['$urlRouterProvider', '$httpProvider', function ($urlRouterProvider) {
+        $urlRouterProvider.otherwise('/dashboard/main');
     }]);
