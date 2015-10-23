@@ -97,7 +97,12 @@ public class TwitServices {
         players.add("Boris Diaw");
         players.add("Lebron James");
         players.add("Ian Mahimi");
-        players.add("Alejandro Berenguer");
+        players.add("Kobe Bryant");
+        players.add("Marc Gasol");
+        players.add("Tim Duncan");
+        players.add("Ersan Ilyasova");
+        players.add("Chris Paul");
+        players.add("Carmelo Anthony");
 
         // The factory instance is re-useable and thread safe.
         ConfigurationBuilder cb = new ConfigurationBuilder();
