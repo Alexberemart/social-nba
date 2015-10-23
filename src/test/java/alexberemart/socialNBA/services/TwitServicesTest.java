@@ -28,6 +28,7 @@ public class TwitServicesTest extends AbstractTransactionalJUnit4SpringContextTe
         // da error
         // twit.setText("RT @NBAHistory: @NBA The champion @Warriors proudly wear 🎯 as they go for ring No. 2 (via @daldridgetnt): https://t.co/0yVKbBbBUe https://t");
         twit.setText("RT @NBAHistory: @NBA The champion @Warriors proudly wear as they go for ring No. 2 (via @daldridgetnt): https://t.co/0yVKbBbBUe https://t");
+        twit.setPlayerName("test");
     }
 
     @Test
@@ -46,5 +47,11 @@ public class TwitServicesTest extends AbstractTransactionalJUnit4SpringContextTe
     //TODO: Si activamos este test falla por la inserción de caracteres extraños, aunque esta ya capado que no se graben ¿?¿?¿?¿?¿?
     public void getPlayerTwits() throws TwitterException, SQLException {
         TwitServices.getInstance().getPlayerTwits();
+    }
+
+    @Test
+    public void getPlayerTwitsCount() throws TwitterException, SQLException {
+        TwitServices.getInstance().saveTwit(twit);
+        TwitServices.getInstance().getPlayerTwitsCount();
     }
 }

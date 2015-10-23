@@ -136,4 +136,9 @@ public class TwitServices {
     public Twit getLastTwitById(String playerName) {
         return twitDAO.getLastTwitById(playerName);
     }
+
+    public List getPlayerTwitsCount(){
+        return twitDAO.getPlayerTwitsWithPositiveAndNegativeCount();
+
+    }
 }

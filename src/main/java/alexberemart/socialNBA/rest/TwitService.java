@@ -11,6 +11,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 @Path("Twit")
 public class TwitService extends AbstractRestService {
@@ -32,6 +33,16 @@ public class TwitService extends AbstractRestService {
 
         TwitServices.getInstance().processTwits();
         return ok("ok");
+
+    }
+
+    @GET
+    @Path("getPlayerTwitsCount")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getPlayerTwitsCount() throws IOException, TwitterException, SQLException {
+
+        List result = TwitServices.getInstance().getPlayerTwitsCount();
+        return ok(result);
 
     }
 }
