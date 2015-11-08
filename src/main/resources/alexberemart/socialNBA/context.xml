@@ -68,7 +68,7 @@
         <property name="dataSource">
             <ref bean="dataSourceSocialNBA"/>
         </property>
-        <property name="packagesToScan" value="${socialNBA.sessionfactory.packagestoscan}"></property>
+        <property name="packagesToScan" value="${socialNBA.sessionfactory.packagestoscan}"/>
     </bean>
 
     <!-- Hibernate templates definition -->
@@ -100,20 +100,20 @@
     </bean>
 
     <bean id="twitDAO"
-          class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
-        <property name="transactionManager">
-            <ref bean="transactionManager"/>
-        </property>
-        <property name="target">
-            <ref local="twitDAOTarget"/>
-        </property>
-        <property name="transactionAttributes">
-            <props>
-                <prop key="makePersistent">PROPAGATION_REQUIRED</prop>
-                <prop key="find*">PROPAGATION_REQUIRED, readOnly</prop>
-            </props>
-        </property>
-    </bean>
+                 class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+    <property name="transactionManager">
+        <ref bean="transactionManager"/>
+    </property>
+    <property name="target">
+        <ref local="twitDAOTarget"/>
+    </property>
+    <property name="transactionAttributes">
+        <props>
+            <prop key="makePersistent">PROPAGATION_REQUIRED</prop>
+            <prop key="find*">PROPAGATION_REQUIRED, readOnly</prop>
+        </props>
+    </property>
+</bean>
 
     <bean id="twitDAOTarget"
           class="alexberemart.socialNBA.model.dao.impl.TwitDAOImpl">
@@ -123,11 +123,39 @@
         </property>
     </bean>
 
-    <bean id="twitServices"
-          class="alexberemart.socialNBA.services.TwitServices"/>
+    <bean id="playerEntryDAO"
+          class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager">
+            <ref bean="transactionManager"/>
+        </property>
+        <property name="target">
+            <ref local="playerEntryDAOTarget"/>
+        </property>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="makePersistent">PROPAGATION_REQUIRED</prop>
+                <prop key="find*">PROPAGATION_REQUIRED, readOnly</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="playerEntryDAOTarget"
+          class="alexberemart.socialNBA.model.dao.impl.PlayerEntryDAOImpl">
+        <qualifier value="target"/>
+        <property name="hibernateTemplate">
+            <ref bean="hibernateTemplateSocialNBA"/>
+        </property>
+    </bean>
+
+    <bean id="twitServices" class="alexberemart.socialNBA.services.TwitServices"/>
+    <bean id="basketReferenceServices" class="alexberemart.socialNBA.services.basketReference.BasketReferenceServices"/>
+    <bean id="playerEntryServices" class="alexberemart.socialNBA.services.PlayerEntryServices"/>
 
     <!-- FACTORIES -->
     <bean id="twitFactory" class="alexberemart.socialNBA.model.factories.TwitFactory"/>
+    <bean id="playerEntryFactory" class="alexberemart.socialNBA.model.factories.basketReference.PlayerEntryFactory"/>
+    <bean id="minutesFactory" class="alexberemart.socialNBA.model.factories.basketReference.MinutesFactory"/>
+    <bean id="numberFactory" class="alexberemart.socialNBA.model.factories.basketReference.NumberFactory"/>
 
     <bean id="oauthCredentials" class="alexberemart.socialNBA.model.vo.OauthCredentials">
         <property name="consumerKey" value="${oauth.consumerKey}"/>
