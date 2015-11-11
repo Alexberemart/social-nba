@@ -11,8 +11,7 @@
 
     <!-- Allows us to use system properties as variables in this configuration
        file -->
-    <bean
-            class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="ignoreUnresolvablePlaceholders" value="true"/>
         <property name="order" value="0"/>
         <property name="locations">
@@ -99,21 +98,29 @@
         </property>
     </bean>
 
+    <!-- Local transaction manager for a single JDBC source by ussing Hibernate -->
+    <bean id="transactionManagerSocialNBA"
+          class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory">
+            <ref local="sessionFactorySocialNBA"/>
+        </property>
+    </bean>
+
     <bean id="twitDAO"
-                 class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
-    <property name="transactionManager">
-        <ref bean="transactionManager"/>
-    </property>
-    <property name="target">
-        <ref local="twitDAOTarget"/>
-    </property>
-    <property name="transactionAttributes">
-        <props>
-            <prop key="makePersistent">PROPAGATION_REQUIRED</prop>
-            <prop key="find*">PROPAGATION_REQUIRED, readOnly</prop>
-        </props>
-    </property>
-</bean>
+          class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager">
+            <ref bean="transactionManagerSocialNBA"/>
+        </property>
+        <property name="target">
+            <ref local="twitDAOTarget"/>
+        </property>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="makePersistent">PROPAGATION_REQUIRED</prop>
+                <prop key="find*">PROPAGATION_REQUIRED, readOnly</prop>
+            </props>
+        </property>
+    </bean>
 
     <bean id="twitDAOTarget"
           class="alexberemart.socialNBA.model.dao.impl.TwitDAOImpl">
@@ -126,7 +133,7 @@
     <bean id="playerEntryDAO"
           class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
         <property name="transactionManager">
-            <ref bean="transactionManager"/>
+            <ref bean="transactionManagerSocialNBA"/>
         </property>
         <property name="target">
             <ref local="playerEntryDAOTarget"/>
@@ -147,9 +154,34 @@
         </property>
     </bean>
 
+    <bean id="matchDAO"
+          class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager">
+            <ref bean="transactionManagerSocialNBA"/>
+        </property>
+        <property name="target">
+            <ref local="matchDAOTarget"/>
+        </property>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="makePersistent">PROPAGATION_REQUIRED</prop>
+                <prop key="find*">PROPAGATION_REQUIRED, readOnly</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="matchDAOTarget"
+          class="alexberemart.socialNBA.model.dao.impl.MatchDAOImpl">
+        <qualifier value="target"/>
+        <property name="hibernateTemplate">
+            <ref bean="hibernateTemplateSocialNBA"/>
+        </property>
+    </bean>
+
     <bean id="twitServices" class="alexberemart.socialNBA.services.TwitServices"/>
     <bean id="basketReferenceServices" class="alexberemart.socialNBA.services.basketReference.BasketReferenceServices"/>
     <bean id="playerEntryServices" class="alexberemart.socialNBA.services.PlayerEntryServices"/>
+    <bean id="matchServices" class="alexberemart.socialNBA.services.MatchServices"/>
 
     <!-- FACTORIES -->
     <bean id="twitFactory" class="alexberemart.socialNBA.model.factories.TwitFactory"/>
@@ -159,9 +191,17 @@
 
     <bean id="oauthCredentials" class="alexberemart.socialNBA.model.vo.OauthCredentials">
         <property name="consumerKey" value="${oauth.consumerKey}"/>
-        <property name="consumerSecretKey" value="${oauth.consumerSecret}" />
-        <property name="accessToken" value="${oauth.accessToken}" />
-        <property name="accessSecretToken" value="${oauth.accessTokenSecret}" />
+        <property name="consumerSecretKey" value="${oauth.consumerSecret}"/>
+        <property name="accessToken" value="${oauth.accessToken}"/>
+        <property name="accessSecretToken" value="${oauth.accessTokenSecret}"/>
+    </bean>
+
+    <bean id="basketReferenceLocalStorage" class="java.lang.String">
+        <constructor-arg value="${socialNBA.basketReference.localStorage}"/>
+    </bean>
+
+    <bean id="basketReferenceRemoteStorage" class="java.lang.String">
+        <constructor-arg value="${socialNBA.basketReference.remoteStorage}"/>
     </bean>
 
     <context:component-scan base-package="alexberemart"/>
