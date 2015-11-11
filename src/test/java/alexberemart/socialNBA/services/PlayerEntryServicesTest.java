@@ -1,6 +1,5 @@
 package alexberemart.socialNBA.services;
 
-import alexberemart.socialNBA.services.basketReference.BasketReferenceServices;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,7 +20,7 @@ public class PlayerEntryServicesTest extends AbstractTransactionalJUnit4SpringCo
     //TODO: Que hacer en este caso ??, no vamos a hacer un test para bajar todos los partidos ....
     @Test
     @Ignore
-    public void getBasketReferenceInfo() throws IOException {
-        PlayerEntryServices.getInstance().getBasketReferenceInfo();
+    public void getBasketReferenceInfo() throws Exception {
+        PlayerEntryServices.getInstance().processBasketReferenceInfo();
     }
 }

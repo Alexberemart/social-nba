@@ -33,15 +33,19 @@ public class PlayerEntryServices {
         playerEntryDAO.makePersistent(playerEntry);
     }
 
-    public void getBasketReferenceInfo() throws IOException {
-        List<Match> matchList = BasketReferenceServices.getInstance().getMatches();
-        for (Match match : matchList){
-            for (TeamStats teamStats : match.getTeamEntries()){
+    public void processBasketReferenceInfo() throws Exception {
+        List<Match> matchList = BasketReferenceServices.getInstance().processMatches();
+        System.out.println("Number of matches to process: " + matchList.size());
+        for (Match basketReferenceMatch : matchList){
+            for (TeamStats teamStats : basketReferenceMatch.getTeamEntries()){
                 for (PlayerStats playerStats : teamStats.getPlayerStatsList()){
                     PlayerEntry playerEntry = createPlayerEntry(playerStats);
                     savePlayerEntry(playerEntry);
                 }
             }
+            alexberemart.socialNBA.model.vo.Match match = new alexberemart.socialNBA.model.vo.Match();
+            match.setIdImported(basketReferenceMatch.getKey());
+            MatchServices.getInstance().saveMatch(match);
         }
     }
 }
