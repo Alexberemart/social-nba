@@ -5,31 +5,46 @@ import alexberemart.socialNBA.model.vo.basketReference.Match;
 import alexberemart.socialNBA.model.vo.basketReference.PlayerStats;
 import alexberemart.socialNBA.model.vo.basketReference.TeamStats;
 import alexberemart.socialNBA.model.vo.basketReference.readingAttributeState.ReadingMinutesState;
+import alexberemart.socialNBA.services.MatchServices;
+import org.apache.commons.io.FileUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.SocketTimeoutException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class BasketReferenceServices {
+
+    @Autowired
+    protected String basketReferenceLocalStorage;
+
+    @Autowired
+    protected String basketReferenceRemoteStorage;
 
     public static BasketReferenceServices getInstance() {
         return (BasketReferenceServices) ApplicationContextProvider.getInstance().getBean("basketReferenceServices");
     }
 
-    public List<Match> getMatches() throws IOException {
+    public List<Match> saveMatchesFiles() throws IOException {
         List<Match> matchList = new ArrayList<>();
         List<String> urlList = getUrlMatches();
         Integer loopNumber = 0;
         System.out.println("Total Number of matches: " + urlList.size());
         for (String url : urlList) {
-            Match match = parseBasketReferenceHTML("http://www.basketball-reference.com" + url);
-            if (match != null){
-                matchList.add(match);
+            Document doc = downloadBasketReferenceHTML("http://www.basketball-reference.com" + url);
+            final File f = new File(basketReferenceLocalStorage + url);
+            if (doc != null) {
+                FileUtils.writeStringToFile(f, doc.outerHtml(), "UTF-8");
             }
             loopNumber += 1;
             System.out.println("Load " + loopNumber + " of " + urlList.size());
@@ -55,13 +70,49 @@ public class BasketReferenceServices {
         return result;
     }
 
-    private Match parseBasketReferenceHTML(String url) throws IOException {
-        Match match = new Match();
+    private Document downloadBasketReferenceHTML(String url) throws IOException {
         Document doc;
         try {
             doc = Jsoup.connect(url).get();
         } catch (SocketTimeoutException e) {
             e.printStackTrace();
+            return null;
+        }
+        return doc;
+    }
+
+    public List<Match> processMatches() throws Exception {
+        List<Match> matchList = new ArrayList<>();
+        //TODO: el directorio remoto deberia de ser configurable
+        //Path path = Paths.get(basketReferenceRemoteStorage);
+        Path path = Paths.get(basketReferenceRemoteStorage);
+        if (Files.notExists(path)) {
+            throw new Exception("No existe el fichero de almacenamiento remoto");
+        }
+        List<File> fileList = listFilesForFolder(basketReferenceRemoteStorage);
+        //List<File> fileList = listFilesForFolder(basketReferenceRemoteStorage);
+        for (File file : fileList){
+            Match match = parseBasketReferenceHTML(file);
+            if (match != null) {
+                matchList.add(match);
+            }
+        }
+        return matchList;
+    }
+
+    private List<File> listFilesForFolder(String folderPath) {
+        final File folder = new File(folderPath);
+        List<File> fileList = new ArrayList<>();
+        Collections.addAll(fileList, folder.listFiles());
+        return fileList;
+    }
+
+    private Match parseBasketReferenceHTML(File file) throws IOException {
+        Document doc = Jsoup.parse(file, "UTF-8", "http://example.com/");
+        Match match = new Match();
+        String keyMatch = getMatchKey(file.getName());
+        match.setKey(keyMatch);
+        if (MatchServices.getInstance().ExistByKey(keyMatch) == Boolean.TRUE) {
             return null;
         }
         Elements tableElements = doc.select("table")
@@ -91,5 +142,10 @@ public class BasketReferenceServices {
             match.getTeamEntries().add(teamStats);
         }
         return match;
+    }
+
+    private String getMatchKey(String url) {
+        Integer position = url.indexOf(".html");
+        return url.substring(position - 12, position);
     }
 }

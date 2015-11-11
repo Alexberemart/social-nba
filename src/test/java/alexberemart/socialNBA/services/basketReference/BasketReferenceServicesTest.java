@@ -21,6 +21,6 @@ public class BasketReferenceServicesTest extends AbstractTransactionalJUnit4Spri
     @Test
     @Ignore
     public void getMatches() throws IOException {
-        BasketReferenceServices.getInstance().getMatches();
+        BasketReferenceServices.getInstance().saveMatchesFiles();
     }
 }
