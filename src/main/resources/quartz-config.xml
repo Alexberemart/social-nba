@@ -7,7 +7,7 @@
 	http://www.quartz-scheduler.org/xml/job_scheduling_data_1_8.xsd"
         version="1.8">
 
-    <schedule>
+    <!--<schedule>
         <job>
             <name>AJob</name>
             <group>AGroup</group>
@@ -15,13 +15,49 @@
             <job-class>alexberemart.socialNBA.scheduler.SchedulerJob</job-class>
         </job>
 
+        <job>
+            <name>BasketReferenceJob</name>
+            <group>BasketReferenceGroup</group>
+            <description>Print a welcome message</description>
+            <job-class>alexberemart.socialNBA.scheduler.BasketReferenceJob</job-class>
+        </job>
+
         <trigger>
             <cron>
                 <name>dummyTriggerName</name>
                 <job-name>AJob</job-name>
                 <job-group>AGroup</job-group>
-                <!-- It will run every 5 seconds -->
+                &lt;!&ndash; It will run every 5 seconds &ndash;&gt;
                 <cron-expression>0/0 0/1 * * * ?</cron-expression>
+            </cron>
+        </trigger>
+
+        <trigger>
+            <cron>
+                <name>BasketReferenceTrigger</name>
+                <job-name>BasketReferenceJob</job-name>
+                <job-group>BasketReferenceGroup</job-group>
+                &lt;!&ndash;<cron-expression>0 0 0/1 1/1 * ? *</cron-expression>&ndash;&gt;
+                <cron-expression>0/0 0/1 * * * ?</cron-expression>
+            </cron>
+        </trigger>
+    </schedule>-->
+
+    <schedule>
+        <job>
+            <name>BasketReferenceJob</name>
+            <group>BasketReferenceGroup</group>
+            <description>Print a welcome message</description>
+            <job-class>alexberemart.socialNBA.scheduler.BasketReferenceJob</job-class>
+        </job>
+
+        <trigger>
+            <cron>
+                <name>BasketReferenceTrigger</name>
+                <job-name>BasketReferenceJob</job-name>
+                <job-group>BasketReferenceGroup</job-group>
+                <!--<cron-expression>0 0 0/1 1/1 * ? *</cron-expression>-->
+                <cron-expression>0/0 0/5 * * * ?</cron-expression>
             </cron>
         </trigger>
     </schedule>
