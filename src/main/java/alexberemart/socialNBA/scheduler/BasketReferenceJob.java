@@ -16,8 +16,6 @@ public class BasketReferenceJob implements Job {
 		System.out.println("start processBasketReferenceInfo");
         try {
             PlayerEntryServices.getInstance().processBasketReferenceInfo();
-            System.out.println(System.getenv("OPENSHIFT_DATA_DIR"));
-            System.out.println(System.getenv("OPENSHIFT_HOMEDIR"));
             System.out.println("finish processBasketReferenceInfo");
         } catch (Exception e) {
             e.printStackTrace();

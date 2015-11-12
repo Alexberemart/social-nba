@@ -83,14 +83,11 @@ public class BasketReferenceServices {
 
     public List<Match> processMatches() throws Exception {
         List<Match> matchList = new ArrayList<>();
-        //TODO: el directorio remoto deberia de ser configurable
-        //Path path = Paths.get(basketReferenceRemoteStorage);
         Path path = Paths.get(basketReferenceRemoteStorage);
         if (Files.notExists(path)) {
             throw new Exception("No existe el fichero de almacenamiento remoto");
         }
         List<File> fileList = listFilesForFolder(basketReferenceRemoteStorage);
-        //List<File> fileList = listFilesForFolder(basketReferenceRemoteStorage);
         for (File file : fileList){
             Match match = parseBasketReferenceHTML(file);
             if (match != null) {
