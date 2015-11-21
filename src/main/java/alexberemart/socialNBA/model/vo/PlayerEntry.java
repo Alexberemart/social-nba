@@ -1,7 +1,12 @@
 package alexberemart.socialNBA.model.vo;
 
 import Alexberemart.core.model.vo.base.BaseEntity;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @org.hibernate.annotations.Entity(dynamicUpdate = true)
@@ -9,6 +14,7 @@ import javax.persistence.Table;
 @javax.persistence.Entity
 public class PlayerEntry extends BaseEntity{
 
+    protected Match match;
     protected String name;
     protected Integer timePlayed;
     protected Integer points;
@@ -35,5 +41,15 @@ public class PlayerEntry extends BaseEntity{
 
     public void setPoints(Integer points) {
         this.points = points;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "matchId", nullable = false)
+    public Match getMatch() {
+        return match;
+    }
+
+    public void setMatch(Match match) {
+        this.match = match;
     }
 }
