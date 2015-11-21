@@ -52,6 +52,32 @@ public class BasketReferenceServices {
         return matchList;
     }
 
+    public List<String> processMainFile(String htmlText) throws IOException {
+        List<String> result = new ArrayList<>();
+        Document doc = Jsoup.parse(htmlText);
+        Element tableElement = doc.select("table")
+                .select(".sortable")
+                .select(".stats_table")
+                .select("[id=games]")
+                .get(0);
+        Elements urlElements = tableElement.select("td[align=center]")
+                .select("a")
+                .select("[href^=/boxscores/]");
+        final Integer numberOfmatches = 10;
+        Integer matchesCounter = 0;
+        for (Element urlElement : urlElements){
+            if (matchesCounter <= numberOfmatches) {
+                String fileKey = urlElement.attr("href");
+                String keyMatch = getMatchKey(fileKey);
+                if (MatchServices.getInstance().ExistByKey(keyMatch) == Boolean.FALSE) {
+                    result.add(fileKey);
+                    matchesCounter += 1;
+                }
+            }
+        }
+        return result;
+    }
+
     private List<String> getUrlMatches() throws IOException {
 
         List<String> result = new ArrayList<>();
@@ -89,10 +115,10 @@ public class BasketReferenceServices {
         }
         List<File> fileList = listFilesForFolder(basketReferenceRemoteStorage);
         for (File file : fileList){
-            Match match = parseBasketReferenceHTML(file);
-            if (match != null) {
-                matchList.add(match);
-            }
+            //Match match = parseBasketReferenceHTML(ileName, fileText);
+            //if (match != null) {
+            //    matchList.add(match);
+            //}
         }
         return matchList;
     }
@@ -104,10 +130,10 @@ public class BasketReferenceServices {
         return fileList;
     }
 
-    private Match parseBasketReferenceHTML(File file) throws IOException {
-        Document doc = Jsoup.parse(file, "UTF-8", "http://example.com/");
+    public Match parseBasketReferenceHTML(String fileName, String fileText) throws IOException {
+        Document doc = Jsoup.parse(fileText);
         Match match = new Match();
-        String keyMatch = getMatchKey(file.getName());
+        String keyMatch = getMatchKey(fileName);
         match.setKey(keyMatch);
         if (MatchServices.getInstance().ExistByKey(keyMatch) == Boolean.TRUE) {
             return null;
@@ -138,6 +164,9 @@ public class BasketReferenceServices {
             teamStats.setPlayerStatsList(playerEntries);
             match.getTeamEntries().add(teamStats);
         }
+        alexberemart.socialNBA.model.vo.Match match1 = new alexberemart.socialNBA.model.vo.Match();
+        match1.setIdImported(match.getKey());
+        MatchServices.getInstance().saveMatch(match1);
         return match;
     }
 
