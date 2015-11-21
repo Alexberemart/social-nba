@@ -48,4 +48,12 @@ public class PlayerEntryServices {
             MatchServices.getInstance().saveMatch(match);
         }
     }
+
+    public List<PlayerEntry>findWithFiltersPaginated(String orderBy, Integer offset, Integer perPage, Boolean asc, String search){
+        return playerEntryDAO.findWithFiltersPaginated(orderBy, offset, perPage, asc, search);
+    }
+
+    public Number countSearchResults(){
+        return playerEntryDAO.countSearchResults();
+    }
 }
