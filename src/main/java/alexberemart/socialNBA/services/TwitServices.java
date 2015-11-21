@@ -5,6 +5,13 @@ import alexberemart.socialNBA.model.dao.TwitDAO;
 import alexberemart.socialNBA.model.factories.TwitFactory;
 import alexberemart.socialNBA.model.vo.OauthCredentials;
 import alexberemart.socialNBA.model.vo.Twit;
+import edu.stanford.nlp.ling.CoreAnnotations;
+import edu.stanford.nlp.neural.rnn.RNNCoreAnnotations;
+import edu.stanford.nlp.pipeline.Annotation;
+import edu.stanford.nlp.pipeline.StanfordCoreNLP;
+import edu.stanford.nlp.sentiment.SentimentCoreAnnotations;
+import edu.stanford.nlp.trees.Tree;
+import edu.stanford.nlp.util.CoreMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateJdbcException;
 import twitter4j.*;
@@ -68,9 +75,9 @@ public class TwitServices {
 
             twit.setNegativeWords(negativeWordsCount);
             twit.setPositiveWords(positiveWordsCount);
-//            init();
-//            Integer prueba = findSentiment(twit.getText());
-//            System.out.println(prueba);
+            init();
+            Integer prueba = findSentiment(twit.getText());
+            System.out.println(prueba);
             saveTwit(twit);
         }
     }
@@ -150,7 +157,7 @@ public class TwitServices {
 
     }
 
-    /*static StanfordCoreNLP pipeline;
+    static StanfordCoreNLP pipeline;
 
     public static void init() {
         pipeline = new StanfordCoreNLP("MyPropFile.properties");
@@ -174,5 +181,5 @@ public class TwitServices {
             }
         }
         return mainSentiment;
-    }*/
+    }
 }
