@@ -10,29 +10,24 @@ curl_setopt($ch, CURLOPT_BINARYTRANSFER, true);
 $html = curl_exec($ch);
 curl_close($ch);
 $ch = curl_init();
-echo "cojo HTML";
+echo "100 Obtengo el Fichero con los partidos<BR>";
 
-curl_setopt($ch, CURLOPT_URL, "http://socialnba-alexberemart.rhcloud.com/socialNBA/rest/basketReference/files");
+curl_setopt($ch, CURLOPT_URL, "http://socialnba-alexberemart.rhcloud.com/socialNBA/rest/basketReference/getFilesToDownload");
 curl_setopt($ch, CURLOPT_POST, 1);
 curl_setopt($ch, CURLOPT_POSTFIELDS, $html);
 
 // receive server response ...
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-echo "envio petición";
+echo "200 Envio el fichero al servidor<BR>";
 
 $server_output = curl_exec($ch);
 $server_output_array = json_decode($server_output);
 
-echo "respuesta servidor".$server_output;
-echo "respuesta servidor" . count($server_output_array);
-
 // Comprobar si ocurrió un error
-if (!curl_errno($ch)) {
+if (curl_errno($ch)) {
     $info = curl_getinfo($ch);
-
-    echo 'Se tardó ' . $info['total_time'] . ' segundos en enviar la petición a ' . $info['url'];
-    echo 'Respuesta ' . $info['http_code'];
+    echo "250 Se ha producido un error".$info['http_code']."<BR>";
 }
 curl_close($ch);
 
@@ -47,8 +42,8 @@ foreach ($server_output_array as $item) {
     $html = curl_exec($ch);
     curl_close($ch);
     $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, "http://socialnba-alexberemart.rhcloud.com/socialNBA/rest/basketReference/files2/" . $fileName);
-    echo "http://socialnba-alexberemart.rhcloud.com/socialNBA/rest/basketReference/files2/" . $fileName."<BR>";
+    curl_setopt($ch, CURLOPT_URL, "http://socialnba-alexberemart.rhcloud.com/socialNBA/rest/basketReference/fileRegister/" . $fileName);
+    echo "300 Envio fichero de un partido<BR>";
     curl_setopt($ch, CURLOPT_POST, 1);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $html);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
