@@ -12,6 +12,9 @@ angular.module('app.Factory')
         return{
             GET_PLAYER_TWITS_COUNT: function () {
                 return prefix + '/Twit/getPlayerTwitsCount';
+            },
+            GET_ALL_PLAYER_ENTRIES: function () {
+                return prefix + '/playerEntry';
             }
         };
     });
