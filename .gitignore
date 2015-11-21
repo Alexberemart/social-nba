@@ -2,3 +2,4 @@
 target/
 *.iml
 src/main/webapp/app/components/bower/
+node_modules/
