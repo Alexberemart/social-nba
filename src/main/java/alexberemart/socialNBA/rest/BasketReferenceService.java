@@ -15,9 +15,9 @@ import java.util.List;
 public class BasketReferenceService extends AbstractRestService {
 
     @POST
-    @Path("files")
+    @Path("getFilesToDownload")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getFiles(String input) throws Exception {
+    public Response getFilesToDownload(String input) throws Exception {
 
         System.out.println("hola php, he recibido tu petición en breve te envio los partidos que me tienes que enviar");
         List<String> result =BasketReferenceServices.getInstance().processMainFile(input);
@@ -26,9 +26,9 @@ public class BasketReferenceService extends AbstractRestService {
     }
 
     @POST
-    @Path("files2/{fileName}")
+    @Path("fileRegister/{fileName}")
     @Produces(MediaType.TEXT_PLAIN)
-    public Response getFiles2(@PathParam("fileName") String fileName, String input) throws Exception {
+    public Response fileRegister(@PathParam("fileName") String fileName, String input) throws Exception {
 
         System.out.println("proceso partido " + fileName);
         BasketReferenceServices.getInstance().parseBasketReferenceHTML(fileName, input);
