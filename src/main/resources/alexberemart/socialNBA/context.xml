@@ -186,6 +186,7 @@
     <!-- FACTORIES -->
     <bean id="twitFactory" class="alexberemart.socialNBA.model.factories.TwitFactory"/>
     <bean id="playerEntryFactory" class="alexberemart.socialNBA.model.factories.basketReference.PlayerEntryFactory"/>
+    <bean id="matchFactory" class="alexberemart.socialNBA.model.factories.MatchFactory"/>
     <bean id="minutesFactory" class="alexberemart.socialNBA.model.factories.basketReference.MinutesFactory"/>
     <bean id="numberFactory" class="alexberemart.socialNBA.model.factories.basketReference.NumberFactory"/>
 
@@ -194,14 +195,6 @@
         <property name="consumerSecretKey" value="${oauth.consumerSecret}"/>
         <property name="accessToken" value="${oauth.accessToken}"/>
         <property name="accessSecretToken" value="${oauth.accessTokenSecret}"/>
-    </bean>
-
-    <bean id="basketReferenceLocalStorage" class="java.lang.String">
-        <constructor-arg value="${socialNBA.basketReference.localStorage}"/>
-    </bean>
-
-    <bean id="basketReferenceRemoteStorage" class="java.lang.String">
-        <constructor-arg value="${socialNBA.basketReference.remoteStorage}"/>
     </bean>
 
     <context:component-scan base-package="alexberemart"/>
