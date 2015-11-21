@@ -43,22 +43,4 @@
         </trigger>
     </schedule>-->
 
-    <schedule>
-        <job>
-            <name>BasketReferenceJob</name>
-            <group>BasketReferenceGroup</group>
-            <description>Print a welcome message</description>
-            <job-class>alexberemart.socialNBA.scheduler.BasketReferenceJob</job-class>
-        </job>
-
-        <trigger>
-            <cron>
-                <name>BasketReferenceTrigger</name>
-                <job-name>BasketReferenceJob</job-name>
-                <job-group>BasketReferenceGroup</job-group>
-                <!--<cron-expression>0 0 0/1 1/1 * ? *</cron-expression>-->
-                <cron-expression>0/0 0/5 * * * ?</cron-expression>
-            </cron>
-        </trigger>
-    </schedule>
 </job-scheduling-data>
