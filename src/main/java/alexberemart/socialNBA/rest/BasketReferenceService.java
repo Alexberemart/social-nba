@@ -31,7 +31,7 @@ public class BasketReferenceService extends AbstractRestService {
     public Response fileRegister(@PathParam("fileName") String fileName, String input) throws Exception {
 
         System.out.println("proceso partido " + fileName);
-        BasketReferenceServices.getInstance().parseBasketReferenceHTML(fileName, input);
+        BasketReferenceServices.getInstance().fileRegister(fileName, input);
         return ok("");
     }
 }

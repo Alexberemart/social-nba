@@ -47,15 +47,20 @@ public class BasketReferenceServices {
         return result;
     }
 
-    public Match parseBasketReferenceHTML(String fileName, String fileText) throws IOException {
-        Document doc = Jsoup.parse(fileText);
-        Match match = new Match();
-        List<PlayerStats> playerEntries = new ArrayList<>();
+    public void fileRegister(String fileName, String fileText){
         String keyMatch = getMatchKey(fileName);
-        match.setKey(keyMatch);
         if (MatchServices.getInstance().ExistByKey(keyMatch) == Boolean.TRUE) {
-            return null;
+            return;
         }
+        Match match = getMatchInfoFromHtml(fileText, keyMatch);
+        MatchServices.getInstance().saveMatch(MatchServices.getInstance().createMatch(match));
+    }
+
+    private Match getMatchInfoFromHtml(String fileText, String keyMatch) {
+        Match match = new Match();
+        Document doc = Jsoup.parse(fileText);
+        List<PlayerStats> playerEntries = new ArrayList<>();
+        match.setKey(keyMatch);
         Elements tableElements = doc.select("table")
                 .select(".sortable")
                 .select(".stats_table")
@@ -81,7 +86,6 @@ public class BasketReferenceServices {
             teamStats.setPlayerStatsList(playerEntries);
             match.getTeamEntries().add(teamStats);
         }
-        MatchServices.getInstance().saveMatch(MatchServices.getInstance().createMatch(match));
         return match;
     }
 
