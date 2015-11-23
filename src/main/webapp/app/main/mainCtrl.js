@@ -1,6 +1,6 @@
 angular.module('app.Controllers')
     .controller('index2',
-    function ($scope, $http, $location, $window, $q, $state, urlConstantsFact) {
+    function ($scope, $http, $location, $window, $q, $state, urlConstantsFact, $filter) {
 
         $scope.numberOfTwitByplayer = [];
         $scope.playerEntries = [];
@@ -65,6 +65,15 @@ angular.module('app.Controllers')
                             title: 'Puntos',
                             visible: true,
                             sortable: true
+                        },
+                        {
+                            field: 'match.date',
+                            title: 'Fecha',
+                            visible: true,
+                            sortable: true,
+                            formatter: function (value) {
+                                return filteredDate = $filter('date')(value, "dd/MM/yyyy");
+                            }
                         }
                     ]
                 });
