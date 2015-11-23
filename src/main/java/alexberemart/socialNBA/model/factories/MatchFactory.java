@@ -11,6 +11,7 @@ public class MatchFactory {
     public Match createMatchFromBasketballReference(alexberemart.socialNBA.model.vo.basketReference.Match basketReferenceMatch) {
         Match match = new Match();
         match.setIdImported(basketReferenceMatch.getKey());
+        match.setDate(basketReferenceMatch.getDate());
         for (TeamStats teamStats : basketReferenceMatch.getTeamEntries()) {
             for (PlayerStats playerStats : teamStats.getPlayerStatsList()) {
                 PlayerEntry playerEntry = PlayerEntryServices.getInstance().createPlayerEntryFromBasketballReference(playerStats, match);

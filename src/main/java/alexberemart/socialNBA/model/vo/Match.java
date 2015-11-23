@@ -1,6 +1,8 @@
 package alexberemart.socialNBA.model.vo;
 
 import Alexberemart.core.model.vo.base.BaseEntity;
+import org.codehaus.jackson.annotate.JsonAutoDetect;
+import org.codehaus.jackson.annotate.JsonBackReference;
 import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -10,6 +12,7 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @org.hibernate.annotations.Entity(dynamicUpdate = true)
@@ -18,6 +21,7 @@ import java.util.List;
 public class Match extends BaseEntity{
 
     protected String idImported;
+    protected Date date;
     protected List<PlayerEntry> playerEntryList = new ArrayList<>();
 
     public String getIdImported() {
@@ -30,12 +34,20 @@ public class Match extends BaseEntity{
 
     @OneToMany(mappedBy = "match")
     @Cascade(CascadeType.ALL)
-    @JsonManagedReference("match")
+    @JsonBackReference("match")
     public List<PlayerEntry> getPlayerEntryList() {
         return playerEntryList;
     }
 
     public void setPlayerEntryList(List<PlayerEntry> playerEntryList) {
         this.playerEntryList = playerEntryList;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }
