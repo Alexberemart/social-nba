@@ -1,8 +1,10 @@
 package alexberemart.socialNBA.model.vo;
 
 import Alexberemart.core.model.vo.base.BaseEntity;
+import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.Fetch;
 
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
@@ -28,6 +30,7 @@ public class Match extends BaseEntity{
 
     @OneToMany(mappedBy = "match")
     @Cascade(CascadeType.ALL)
+    @JsonManagedReference("match")
     public List<PlayerEntry> getPlayerEntryList() {
         return playerEntryList;
     }

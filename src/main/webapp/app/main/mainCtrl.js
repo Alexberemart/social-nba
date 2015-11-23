@@ -12,11 +12,6 @@ angular.module('app.Controllers')
                 $scope.numberOfTwitByplayer = data;
             })
 
-        $http.get(urlConstantsFact.GET_ALL_PLAYER_ENTRIES())
-            .success(function(data){
-                $scope.playerEntries = data;
-            })
-
         $scope.init = function () {
 
             $scope.$evalAsync(function () {

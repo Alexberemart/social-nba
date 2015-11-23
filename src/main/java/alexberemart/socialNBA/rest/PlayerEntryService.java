@@ -27,14 +27,14 @@ public class PlayerEntryService extends AbstractRestService {
             @QueryParam("search") String search
     ) throws Exception {
 
-        boolean asc = true;
+        Boolean asc = Boolean.TRUE;
 
         switch (order) {
             case "asc":
-                asc = true;
+                asc = Boolean.TRUE;
                 break;
             case "desc":
-                asc = false;
+                asc = Boolean.FALSE;
                 break;
         }
 

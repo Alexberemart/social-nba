@@ -35,7 +35,7 @@ public class BasketReferenceServices {
         final Integer numberOfmatches = 10;
         Integer matchesCounter = 0;
         for (Element urlElement : urlElements){
-            if (matchesCounter <= numberOfmatches) {
+            if (matchesCounter < numberOfmatches) {
                 String fileKey = urlElement.attr("href");
                 String keyMatch = getMatchKey(fileKey);
                 if (MatchServices.getInstance().ExistByKey(keyMatch) == Boolean.FALSE) {
