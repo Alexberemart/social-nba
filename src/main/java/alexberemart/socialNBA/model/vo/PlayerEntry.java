@@ -1,7 +1,10 @@
 package alexberemart.socialNBA.model.vo;
 
 import Alexberemart.core.model.vo.base.BaseEntity;
+import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonManagedReference;
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
@@ -46,7 +49,7 @@ public class PlayerEntry extends BaseEntity{
 
     @ManyToOne
     @JoinColumn(name = "matchId", nullable = false)
-    @JsonBackReference("match")
+    @JsonManagedReference("match")
     public Match getMatch() {
         return match;
     }

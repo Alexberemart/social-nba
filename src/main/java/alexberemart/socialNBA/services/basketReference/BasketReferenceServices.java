@@ -12,8 +12,13 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class BasketReferenceServices {
 
@@ -47,7 +52,7 @@ public class BasketReferenceServices {
         return result;
     }
 
-    public void fileRegister(String fileName, String fileText){
+    public void fileRegister(String fileName, String fileText) throws ParseException {
         String keyMatch = getMatchKey(fileName);
         if (MatchServices.getInstance().ExistByKey(keyMatch) == Boolean.TRUE) {
             return;
@@ -56,11 +61,12 @@ public class BasketReferenceServices {
         MatchServices.getInstance().saveMatch(MatchServices.getInstance().createMatch(match));
     }
 
-    private Match getMatchInfoFromHtml(String fileText, String keyMatch) {
+    private Match getMatchInfoFromHtml(String fileText, String keyMatch) throws ParseException {
         Match match = new Match();
         Document doc = Jsoup.parse(fileText);
         List<PlayerStats> playerEntries = new ArrayList<>();
         match.setKey(keyMatch);
+        match.setDate(getMatchDate(keyMatch));
         Elements tableElements = doc.select("table")
                 .select(".sortable")
                 .select(".stats_table")
@@ -92,5 +98,10 @@ public class BasketReferenceServices {
     private String getMatchKey(String url) {
         Integer position = url.indexOf(".html");
         return url.substring(position - 12, position);
+    }
+
+    private Date getMatchDate(String keyMatch) throws ParseException {
+        DateFormat format = new SimpleDateFormat("yyyyMMdd", Locale.ENGLISH);
+        return format.parse(keyMatch.substring(0, 8));
     }
 }
