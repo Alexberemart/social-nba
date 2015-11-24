@@ -10,6 +10,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,9 +41,13 @@ public class PlayerEntryService extends AbstractRestService {
 
         List<PlayerEntry> playerEntries = PlayerEntryServices.getInstance().findWithFiltersPaginated(orderBy, offset, perPage, asc, search);
 
+        if (playerEntries == null){
+            playerEntries = new ArrayList<>();
+        }
+
         Map<String, Object> result = new HashMap<>();
         result.put("rows", playerEntries);
-        result.put("total", PlayerEntryServices.getInstance().countSearchResults());
+        result.put("total", PlayerEntryServices.getInstance().countSearchResults(search));
         return ok(result);
 
     }
