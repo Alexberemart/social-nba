@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="row top-buffer">
+        <div class="col-xs-12 col-md-4 col-md-offset-4">
+            <table class=table>
+                <thead>
+                <tr>
+                    <th title="name">name</th>
+                    <th><i class="fa fa-twitter"></i></th>
+                    <th><i class="fa fa-smile-o"></i></th>
+                    <th><i class="fa fa-frown-o"></i></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tbody>
+                <!--<TR ng-repeat="p in Players | orderBy:predicate:reverse"-->
+                <TR ng-repeat="n in numberOfTwitByplayer | orderBy:predicate:reverse">
+                    <TD>{{n.playerName}}</TD>
+                    <TD>{{n.resultsNumber}}</TD>
+                    <TD>{{n.positiveWordsNumber}}</TD>
+                    <TD>{{n.negativeWordsNumber}}</TD>
+                </TR>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>

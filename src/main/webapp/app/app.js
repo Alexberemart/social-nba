@@ -21,7 +21,16 @@ angular.module('myApp', [ 'ui.router', 'app.Controllers', 'app.Factory'])
                 views: {
                     dashboardContent: {
                         templateUrl: 'app/main/main.html',
-                        controller: 'index2'
+                        controller: 'main'
+                    }
+                }
+            })
+            .state('dashboard.twitter', {
+                url: '/twitter',
+                views: {
+                    dashboardContent: {
+                        templateUrl: 'app/twitter/twitter.html',
+                        controller: 'twitter'
                     }
                 }
             })
