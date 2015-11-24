@@ -178,10 +178,31 @@
         </property>
     </bean>
 
+    <bean id="restServiceLogDAO"
+          class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManagerSocialNBA"/>
+        <property name="target">
+            <ref local="restServiceLogDAOTarget"/>
+        </property>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="makePersistent">PROPAGATION_REQUIRED</prop>
+                <prop key="find*">PROPAGATION_REQUIRED, readOnly</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="restServiceLogDAOTarget"
+          class="alexberemart.socialNBA.model.dao.impl.RestServiceLogDAOImpl">
+        <qualifier value="target"/>
+        <property name="hibernateTemplate" ref="hibernateTemplateSocialNBA"/>
+    </bean>
+
     <bean id="twitServices" class="alexberemart.socialNBA.services.TwitServices"/>
     <bean id="basketReferenceServices" class="alexberemart.socialNBA.services.basketReference.BasketReferenceServices"/>
     <bean id="playerEntryServices" class="alexberemart.socialNBA.services.PlayerEntryServices"/>
     <bean id="matchServices" class="alexberemart.socialNBA.services.MatchServices"/>
+    <bean id="restServiceLogServices" class="alexberemart.socialNBA.services.RestServiceLogServices"/>
 
     <!-- FACTORIES -->
     <bean id="twitFactory" class="alexberemart.socialNBA.model.factories.TwitFactory"/>

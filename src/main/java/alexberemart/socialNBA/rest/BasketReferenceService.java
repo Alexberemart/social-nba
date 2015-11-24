@@ -1,6 +1,8 @@
 package alexberemart.socialNBA.rest;
 
 import Alexberemart.core.rest.AbstractRestService;
+import alexberemart.socialNBA.model.vo.RestServiceLog;
+import alexberemart.socialNBA.services.RestServiceLogServices;
 import alexberemart.socialNBA.services.basketReference.BasketReferenceServices;
 
 import javax.ws.rs.POST;
@@ -9,6 +11,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.Date;
 import java.util.List;
 
 @Path("basketReference")
@@ -32,6 +35,12 @@ public class BasketReferenceService extends AbstractRestService {
 
         System.out.println("proceso partido " + fileName);
         BasketReferenceServices.getInstance().fileRegister(fileName, input);
+
+        RestServiceLog restServiceLog = new RestServiceLog();
+        restServiceLog.setDate(new Date());
+        restServiceLog.setRestServiceName("fileRegister");
+        RestServiceLogServices.getInstance().saveRestServiceLog(restServiceLog);
+
         return ok("");
     }
 }
