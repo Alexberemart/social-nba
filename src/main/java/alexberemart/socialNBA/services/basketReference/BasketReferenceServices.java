@@ -64,7 +64,6 @@ public class BasketReferenceServices {
     private Match getMatchInfoFromHtml(String fileText, String keyMatch) throws ParseException {
         Match match = new Match();
         Document doc = Jsoup.parse(fileText);
-        List<PlayerStats> playerEntries = new ArrayList<>();
         match.setKey(keyMatch);
         match.setDate(getMatchDate(keyMatch));
         Elements tableElements = doc.select("table")
@@ -87,9 +86,8 @@ public class BasketReferenceServices {
                 for (Element dataCellElement : dataCellElements) {
                     playerStats.getState().gotToNextState(playerStats, dataCellElement.text());
                 }
-                playerEntries.add(playerStats);
+                teamStats.getPlayerStatsList().add(playerStats);
             }
-            teamStats.setPlayerStatsList(playerEntries);
             match.getTeamEntries().add(teamStats);
         }
         return match;
