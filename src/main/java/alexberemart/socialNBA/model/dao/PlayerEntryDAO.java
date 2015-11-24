@@ -9,5 +9,5 @@ public interface PlayerEntryDAO extends GenericHibernateDAO<PlayerEntry, String>
 
     List<PlayerEntry> findWithFiltersPaginated(String orderBy, Integer offset, Integer limit, Boolean asc, String search);
 
-    Number countSearchResults();
+    Number countSearchResultsWithFilters(String search);
 }

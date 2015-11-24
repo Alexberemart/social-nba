@@ -52,11 +52,15 @@ public class PlayerEntryDAOImpl extends GenericHibernateSpringDAOImpl<PlayerEntr
         return byCriteria;
     }
 
-    public Number countSearchResults() {
-
+    @Override
+    public Number countSearchResultsWithFilters(String search){
         DetachedCriteria detachedCriteria = DetachedCriteria
                 .forClass(PlayerEntry.class)
                 .setProjection(Projections.rowCount());
+
+        if (StringUtils.isNotEmpty(search)) {
+            detachedCriteria.add(Restrictions.like("name", "%" + search + "%"));
+        }
 
         Number totalResults;
 
