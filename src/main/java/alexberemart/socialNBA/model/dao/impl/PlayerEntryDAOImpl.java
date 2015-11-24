@@ -4,12 +4,12 @@ import Alexberemart.core.model.dao.base.hibernate.spring.impl.GenericHibernateSp
 import Alexberemart.core.util.StringUtils;
 import alexberemart.socialNBA.model.dao.PlayerEntryDAO;
 import alexberemart.socialNBA.model.vo.PlayerEntry;
+import org.hibernate.FetchMode;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
-import java.util.Date;
 import java.util.List;
 
 public class PlayerEntryDAOImpl extends GenericHibernateSpringDAOImpl<PlayerEntry, String> implements PlayerEntryDAO {
@@ -21,13 +21,18 @@ public class PlayerEntryDAOImpl extends GenericHibernateSpringDAOImpl<PlayerEntr
     @Override
     public List<PlayerEntry> findWithFiltersPaginated(String orderBy, Integer offset, Integer perPage, Boolean asc, String search) {
 
-        DetachedCriteria detachedCriteria = DetachedCriteria.forClass(PlayerEntry.class);
+        DetachedCriteria detachedCriteria = DetachedCriteria
+                .forClass(PlayerEntry.class);
 
         if (StringUtils.isNotEmpty(search)) {
             detachedCriteria.add(Restrictions.like("name", "%" + search + "%"));
         }
 
         if (StringUtils.isNotBlank(orderBy)) {
+            if (StringUtils.indexOf(orderBy, "match.") != -1) {
+                detachedCriteria.setFetchMode("match", FetchMode.JOIN)
+                        .createCriteria("match", "match");
+            }
             if (asc) {
                 detachedCriteria.addOrder(Order.asc(orderBy));
             } else {
