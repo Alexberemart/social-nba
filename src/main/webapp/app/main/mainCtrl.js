@@ -22,6 +22,7 @@ angular.module('app.Controllers')
                     sidePagination: 'server',
                     buttonsAlign: 'right',
                     showColumns: true,
+                    showRefresh: true,
                     formatRecordsPerPage: function (pageNumber) {
                         return pageNumber + ' Registros por pagina';
                     },
