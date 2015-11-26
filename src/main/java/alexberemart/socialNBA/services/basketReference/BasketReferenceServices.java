@@ -58,6 +58,14 @@ public class BasketReferenceServices {
             return;
         }
         Match match = getMatchInfoFromHtml(fileText, keyMatch);
+        if (match.getTeamEntries().isEmpty()){
+            return;
+        }
+        for (TeamStats teamStats : match.getTeamEntries()){
+            if (teamStats.getPlayerStatsList().isEmpty()){
+                return;
+            }
+        }
         MatchServices.getInstance().saveMatch(MatchServices.getInstance().createMatch(match));
     }
 
