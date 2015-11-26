@@ -15,6 +15,9 @@ angular.module('app.Factory')
             },
             GET_ALL_PLAYER_ENTRIES: function () {
                 return prefix + '/playerEntry';
+            },
+            GET_ALL_REST_SERVICE_LOG: function () {
+                return prefix + '/restServiceLog';
             }
         };
     });
