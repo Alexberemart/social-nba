@@ -34,6 +34,15 @@ angular.module('myApp', [ 'ui.router', 'app.Controllers', 'app.Factory'])
                     }
                 }
             })
+            .state('dashboard.restServiceLog', {
+                url: '/restServiceLog',
+                views: {
+                    dashboardContent: {
+                        templateUrl: 'app/restServiceLog/restServiceLog.html',
+                        controller: 'restServiceLog'
+                    }
+                }
+            })
     }])
 
     .config(['$urlRouterProvider', '$httpProvider', function ($urlRouterProvider) {
