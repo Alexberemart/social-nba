@@ -32,11 +32,13 @@ public class TwitServicesTest extends AbstractTransactionalJUnit4SpringContextTe
     }
 
     @Test
+    @Ignore
     public void saveTwit() throws SQLException {
         TwitServices.getInstance().saveTwit(twit);
     }
 
     @Test
+    @Ignore
     public void processTwit() throws SQLException, IOException {
         TwitServices.getInstance().saveTwit(twit);
         TwitServices.getInstance().processTwits();
@@ -50,6 +52,7 @@ public class TwitServicesTest extends AbstractTransactionalJUnit4SpringContextTe
     }
 
     @Test
+    @Ignore
     public void getPlayerTwitsCount() throws TwitterException, SQLException {
         TwitServices.getInstance().saveTwit(twit);
         TwitServices.getInstance().getPlayerTwitsCount();
