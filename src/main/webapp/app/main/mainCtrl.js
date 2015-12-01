@@ -2,6 +2,26 @@ angular.module('app.Controllers')
     .controller('main',
     function ($scope, $http, $location, $window, $q, $state, urlConstantsFact, $filter) {
 
+        $scope.dateFilter = null;
+
+        $scope.addExtraQueryParams = function (params) {
+
+            var dateFilterMilli = 0;
+
+            if ($scope.dateFilter != null && $scope.dateFilter != "") {
+                dateFilterMilli = $scope.dateFilter;
+            }
+
+            params['dateFilter'] = dateFilterMilli;
+            return params;
+        };
+
+        $scope.$watchGroup(['dateFilter'], function (newValue) {
+            if (newValue[0] !== -1) {
+                $('#users-table').bootstrapTable('refresh', {silent: true});
+            }
+        });
+
         $scope.init = function () {
 
             $scope.$evalAsync(function () {
@@ -16,6 +36,9 @@ angular.module('app.Controllers')
                     pageNumber: 1,
                     pageSize: 10,
                     pageList: [10, 25, 50, 100, 200],
+                    toolbar: "#custom-toolbar-invoices",
+                    toolbarAlign: "left",
+                    queryParams: $scope.addExtraQueryParams,
                     search: true,
                     searchTimeOut: 1000,
                     searchAlign: 'left',

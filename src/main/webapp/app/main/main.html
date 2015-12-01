@@ -1,5 +1,14 @@
 <div class="container">
     <div class="row top-buffer">
+        <div id="custom-toolbar-invoices" class="bootstrap-table-invoices-filter">
+            <div class="col-xs-12 dates-first" style="padding-left: 0">
+                <input class="form-control" id="dateFilter" type="text" ng-model="dateFilter"
+                       placeholder="F. ini (dd/mm/yyyy)"
+                       asv-date-picker asv-date-picker-view-mode="days"
+                       asv-date-picker-min-view-mode="days"
+                       parse-as-number="true">
+            </div>
+        </div>
         <div data-ng-init="init()">
             <div id="user-table" class="col-xs-12 extranetTable">
                 <table id="users-table"></table>
@@ -7,3 +16,4 @@
         </div>
     </div>
 </div>
+

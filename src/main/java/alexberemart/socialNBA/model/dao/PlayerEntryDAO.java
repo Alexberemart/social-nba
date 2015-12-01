@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface PlayerEntryDAO extends GenericHibernateDAO<PlayerEntry, String> {
 
-    List<PlayerEntry> findWithFiltersPaginated(String orderBy, Integer offset, Integer limit, Boolean asc, String search);
+    List<PlayerEntry> findWithFiltersPaginated(String orderBy, Integer offset, Integer limit, Boolean asc, String search, Long dateFilter);
 
     Number countSearchResultsWithFilters(String search);
 }
