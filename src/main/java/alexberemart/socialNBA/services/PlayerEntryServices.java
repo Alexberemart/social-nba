@@ -26,8 +26,8 @@ public class PlayerEntryServices {
         return playerEntryFactory.createPlayerEntryFromBasketballReference(playerStats, match);
     }
 
-    public List<PlayerEntry>findWithFiltersPaginated(String orderBy, Integer offset, Integer perPage, Boolean asc, String search){
-        return playerEntryDAO.findWithFiltersPaginated(orderBy, offset, perPage, asc, search);
+    public List<PlayerEntry>findWithFiltersPaginated(String orderBy, Integer offset, Integer perPage, Boolean asc, String search, Long dateFilter){
+        return playerEntryDAO.findWithFiltersPaginated(orderBy, offset, perPage, asc, search, dateFilter);
     }
 
     public Number countSearchResults(String search){

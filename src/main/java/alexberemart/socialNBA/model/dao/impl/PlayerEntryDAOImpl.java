@@ -1,15 +1,16 @@
 package alexberemart.socialNBA.model.dao.impl;
 
 import Alexberemart.core.model.dao.base.hibernate.spring.impl.GenericHibernateSpringDAOImpl;
-import Alexberemart.core.util.StringUtils;
 import alexberemart.socialNBA.model.dao.PlayerEntryDAO;
 import alexberemart.socialNBA.model.vo.PlayerEntry;
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.FetchMode;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
+import java.util.Date;
 import java.util.List;
 
 public class PlayerEntryDAOImpl extends GenericHibernateSpringDAOImpl<PlayerEntry, String> implements PlayerEntryDAO {
@@ -19,20 +20,22 @@ public class PlayerEntryDAOImpl extends GenericHibernateSpringDAOImpl<PlayerEntr
     }
 
     @Override
-    public List<PlayerEntry> findWithFiltersPaginated(String orderBy, Integer offset, Integer perPage, Boolean asc, String search) {
+    public List<PlayerEntry> findWithFiltersPaginated(String orderBy, Integer offset, Integer perPage, Boolean asc, String search, Long dateFilter) {
 
         DetachedCriteria detachedCriteria = DetachedCriteria
-                .forClass(PlayerEntry.class);
+                .forClass(PlayerEntry.class)
+                .setFetchMode("match", FetchMode.JOIN)
+                .createAlias("match", "match");
 
         if (StringUtils.isNotEmpty(search)) {
             detachedCriteria.add(Restrictions.like("name", "%" + search + "%"));
         }
 
+        if (dateFilter != null) {
+            detachedCriteria.add(Restrictions.eq("match.date", new Date(dateFilter)));
+        }
+
         if (StringUtils.isNotBlank(orderBy)) {
-            if (StringUtils.indexOf(orderBy, "match.") != -1) {
-                detachedCriteria.setFetchMode("match", FetchMode.JOIN)
-                        .createCriteria("match", "match");
-            }
             if (asc) {
                 detachedCriteria.addOrder(Order.asc(orderBy));
             } else {
@@ -53,7 +56,7 @@ public class PlayerEntryDAOImpl extends GenericHibernateSpringDAOImpl<PlayerEntr
     }
 
     @Override
-    public Number countSearchResultsWithFilters(String search){
+    public Number countSearchResultsWithFilters(String search) {
         DetachedCriteria detachedCriteria = DetachedCriteria
                 .forClass(PlayerEntry.class)
                 .setProjection(Projections.rowCount());
