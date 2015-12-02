@@ -21,7 +21,7 @@ import java.util.List;
 public class Match extends BaseEntity{
 
     protected String idImported;
-    protected Date date;
+    protected Long date;
     protected List<PlayerEntry> playerEntryList = new ArrayList<>();
 
     public String getIdImported() {
@@ -43,11 +43,11 @@ public class Match extends BaseEntity{
         this.playerEntryList = playerEntryList;
     }
 
-    public Date getDate() {
+    public Long getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Long date) {
         this.date = date;
     }
 }

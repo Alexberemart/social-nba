@@ -32,8 +32,10 @@ public class PlayerEntryDAOImpl extends GenericHibernateSpringDAOImpl<PlayerEntr
         }
 
         if (dateFilter != null) {
-            detachedCriteria.add(Restrictions.eq("match.date", new Date(dateFilter)));
+            detachedCriteria.add(Restrictions.eq("match.date", dateFilter));
         }
+
+        System.out.println(dateFilter);
 
         if (StringUtils.isNotBlank(orderBy)) {
             if (asc) {
