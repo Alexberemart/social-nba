@@ -106,8 +106,9 @@ public class BasketReferenceServices {
         return url.substring(position - 12, position);
     }
 
-    private Date getMatchDate(String keyMatch) throws ParseException {
+    private Long getMatchDate(String keyMatch) throws ParseException {
         DateFormat format = new SimpleDateFormat("yyyyMMdd", Locale.ENGLISH);
-        return format.parse(keyMatch.substring(0, 8));
+        Date date = format.parse(keyMatch.substring(0, 8));
+        return date.getTime();
     }
 }

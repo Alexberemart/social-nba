@@ -7,7 +7,7 @@ import java.util.List;
 public class Match {
 
     protected String key;
-    protected Date date;
+    protected Long date;
     List<TeamStats> teamEntries = new ArrayList<>();
 
     public String getKey() {
@@ -26,11 +26,11 @@ public class Match {
         this.teamEntries = teamEntries;
     }
 
-    public Date getDate() {
+    public Long getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Long date) {
         this.date = date;
     }
 }
