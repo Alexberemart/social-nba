@@ -15,10 +15,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 public class BasketReferenceServices {
 
@@ -107,7 +104,8 @@ public class BasketReferenceServices {
     }
 
     private Long getMatchDate(String keyMatch) throws ParseException {
-        DateFormat format = new SimpleDateFormat("yyyyMMdd", Locale.ENGLISH);
+        DateFormat format = new SimpleDateFormat("yyyyMMdd");
+        format.setTimeZone(TimeZone.getTimeZone("GMT+01"));
         Date date = format.parse(keyMatch.substring(0, 8));
         return date.getTime();
     }
