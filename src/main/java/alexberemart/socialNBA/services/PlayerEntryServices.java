@@ -23,7 +23,9 @@ public class PlayerEntryServices {
     }
 
     public PlayerEntry createPlayerEntryFromBasketballReference(PlayerStats playerStats, Match match) {
-        return playerEntryFactory.createPlayerEntryFromBasketballReference(playerStats, match);
+        PlayerEntry playerEntry = playerEntryFactory.createPlayerEntryFromBasketballReference(playerStats, match);
+        playerEntry.calculateRanking();
+        return playerEntry;
     }
 
     public List<PlayerEntry>findWithFiltersPaginated(String orderBy, Integer offset, Integer perPage, Boolean asc, String search, Long dateFilter){

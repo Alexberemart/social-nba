@@ -75,12 +75,6 @@ angular.module('app.Controllers')
                             sortable: true
                         },
                         {
-                            field: 'points',
-                            title: 'Puntos',
-                            visible: true,
-                            sortable: true
-                        },
-                        {
                             field: 'match.date',
                             title: 'Fecha',
                             visible: true,
@@ -88,6 +82,78 @@ angular.module('app.Controllers')
                             formatter: function (value) {
                                 return filteredDate = $filter('date')(value, "dd/MM/yyyy");
                             }
+                        },
+                        {
+                            field: 'points',
+                            title: 'Puntos',
+                            visible: true,
+                            sortable: true
+                        },
+                        {
+                            field: 'rebounds',
+                            title: 'Rebotes',
+                            visible: true,
+                            sortable: true
+                        },
+                        {
+                            field: 'assists',
+                            title: 'Asistencias',
+                            visible: true,
+                            sortable: true
+                        },
+                        {
+                            field: 'ranking',
+                            title: 'Valor',
+                            visible: true,
+                            sortable: true
+                        },
+                        {
+                            field: 'steals',
+                            title: 'Robos',
+                            visible: false,
+                            sortable: true
+                        },
+                        {
+                            field: 'blocks',
+                            title: 'Tapones',
+                            visible: false,
+                            sortable: true
+                        },
+                        {
+                            field: 'turnovers',
+                            title: 'Perdidas',
+                            visible: false,
+                            sortable: true
+                        },
+                        {
+                            field: 'personalFouls',
+                            title: 'Personales',
+                            visible: false,
+                            sortable: true
+                        },
+                        {
+                            field: 'fieldGoals',
+                            title: 'Tiros de Campo Anotados',
+                            visible: false,
+                            sortable: true
+                        },
+                        {
+                            field: 'fieldGoalAttempts',
+                            title: 'Tiros de Campo intentados',
+                            visible: false,
+                            sortable: true
+                        },
+                        {
+                            field: 'freeThrows',
+                            title: 'Tiros libres anotados',
+                            visible: false,
+                            sortable: true
+                        },
+                        {
+                            field: 'freeThrowAttempts',
+                            title: 'Tiros libres intentados',
+                            visible: false,
+                            sortable: true
                         }
                     ]
                 });
