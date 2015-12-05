@@ -2,8 +2,13 @@
     <div class="row top-buffer">
         <div id="custom-toolbar-invoices" class="bootstrap-table-invoices-filter">
             <div class="col-xs-12 dates-first" style="padding-left: 0">
-                <input class="form-control" id="dateFilter" type="text" ng-model="dateFilter"
+                <input class="form-control" id="dateFromFilter" type="text" ng-model="dateFromFilter"
                        placeholder="F. ini (dd/mm/yyyy)"
+                       asv-date-picker asv-date-picker-view-mode="days"
+                       asv-date-picker-min-view-mode="days"
+                       parse-as-number="true">
+                <input class="form-control" id="dateToFilter" type="text" ng-model="dateToFilter"
+                       placeholder="F. fin (dd/mm/yyyy)"
                        asv-date-picker asv-date-picker-view-mode="days"
                        asv-date-picker-min-view-mode="days"
                        parse-as-number="true">
