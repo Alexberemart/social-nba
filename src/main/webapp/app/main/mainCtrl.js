@@ -84,6 +84,12 @@ angular.module('app.Controllers')
                             }
                         },
                         {
+                            field: 'ranking',
+                            title: 'Valor',
+                            visible: true,
+                            sortable: true
+                        },
+                        {
                             field: 'points',
                             title: 'Puntos',
                             visible: true,
@@ -98,12 +104,6 @@ angular.module('app.Controllers')
                         {
                             field: 'assists',
                             title: 'Asistencias',
-                            visible: true,
-                            sortable: true
-                        },
-                        {
-                            field: 'ranking',
-                            title: 'Valor',
                             visible: true,
                             sortable: true
                         },
