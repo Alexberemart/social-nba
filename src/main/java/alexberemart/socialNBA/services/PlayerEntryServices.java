@@ -32,7 +32,7 @@ public class PlayerEntryServices {
         return playerEntryDAO.findWithFiltersPaginated(orderBy, offset, perPage, asc, search, dateFilter);
     }
 
-    public Number countSearchResults(String search){
-        return playerEntryDAO.countSearchResultsWithFilters(search);
+    public Number countSearchResults(String search, Long dateFilter){
+        return playerEntryDAO.countSearchResultsWithFilters(search, dateFilter);
     }
 }
