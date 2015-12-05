@@ -52,7 +52,7 @@ public class PlayerEntryService extends AbstractRestService {
 
         Map<String, Object> result = new HashMap<>();
         result.put("rows", playerEntries);
-        result.put("total", PlayerEntryServices.getInstance().countSearchResults(search));
+        result.put("total", PlayerEntryServices.getInstance().countSearchResults(search, dateFilter));
         return ok(result);
 
     }
