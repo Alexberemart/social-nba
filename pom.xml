@@ -25,6 +25,12 @@
             <artifactId>twitter4j-core</artifactId>
             <version>4.0.4</version>
         </dependency>
+        <dependency>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>2.3.2</version>
+            <scope>test</scope>
+        </dependency>
 
         <!--Stanford’s Core NLP-->
 
@@ -74,6 +80,7 @@
                     <additionalClasspathElements>
                         <additionalClasspathElement>src/main/java</additionalClasspathElement>
                         <additionalClasspathElement>src/main/resources</additionalClasspathElement>
+                        <additionalClasspathElement>src/test/java</additionalClasspathElement>
                     </additionalClasspathElements>
                 </configuration>
             </plugin>

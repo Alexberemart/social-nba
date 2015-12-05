@@ -40,7 +40,7 @@
             <value>true</value>
         </property>
         <property name="validationQuery">
-            <value>select 1</value>
+            <value>${socialNBA.datasource.validationQuery}</value>
         </property>
     </bean>
 
@@ -50,7 +50,7 @@
         <property name="hibernateProperties">
             <props>
                 <prop key="javax.persistence.validation.mode">NONE</prop>
-                <prop key="hibernate.dialect">${core.hibernate.dialect.classname}</prop>
+                <prop key="hibernate.dialect">${socialNBA.hibernate.dialect.classname}</prop>
                 <prop key="hibernate.hbm2ddl.auto">${socialNBA.hibernate.hbm2ddl.auto}</prop>
                 <prop key="hibernate.show_sql">false</prop>
                 <prop key="hibernate.format_sql">true</prop>

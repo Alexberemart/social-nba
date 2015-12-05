@@ -56,13 +56,19 @@ public class PlayerEntryDAOImpl extends GenericHibernateSpringDAOImpl<PlayerEntr
     }
 
     @Override
-    public Number countSearchResultsWithFilters(String search) {
+    public Number countSearchResultsWithFilters(String search, Long dateFilter) {
         DetachedCriteria detachedCriteria = DetachedCriteria
                 .forClass(PlayerEntry.class)
-                .setProjection(Projections.rowCount());
+                .setProjection(Projections.rowCount())
+                .setFetchMode("match", FetchMode.JOIN)
+                .createAlias("match", "match");
 
         if (StringUtils.isNotEmpty(search)) {
             detachedCriteria.add(Restrictions.like("name", "%" + search + "%"));
+        }
+
+        if (dateFilter != null) {
+            detachedCriteria.add(Restrictions.eq("match.date", dateFilter));
         }
 
         Number totalResults;
