@@ -28,11 +28,11 @@ public class PlayerEntryServices {
         return playerEntry;
     }
 
-    public List<PlayerEntry>findWithFiltersPaginated(String orderBy, Integer offset, Integer perPage, Boolean asc, String search, Long dateFilter){
-        return playerEntryDAO.findWithFiltersPaginated(orderBy, offset, perPage, asc, search, dateFilter);
+    public List<PlayerEntry>findWithFiltersPaginated(String orderBy, Integer offset, Integer perPage, Boolean asc, String search, Long dateFromFilter, Long dateToFilter){
+        return playerEntryDAO.findWithFiltersPaginated(orderBy, offset, perPage, asc, search, dateFromFilter, dateToFilter);
     }
 
-    public Number countSearchResults(String search, Long dateFilter){
-        return playerEntryDAO.countSearchResultsWithFilters(search, dateFilter);
+    public Number countSearchResults(String search, Long dateFromFilter, Long dateToFilter){
+        return playerEntryDAO.countSearchResultsWithFilters(search, dateFromFilter, dateToFilter);
     }
 }
