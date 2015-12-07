@@ -1,23 +1,37 @@
 <div class="container">
     <div class="row top-buffer">
-        <div id="custom-toolbar-invoices" class="bootstrap-table-invoices-filter">
+        <div id="custom-toolbar-player-entries">
             <div class="col-xs-12 dates-first" style="padding-left: 0">
-                <input class="form-control" id="dateFromFilter" type="text" ng-model="dateFromFilter"
-                       placeholder="F. ini (dd/mm/yyyy)"
-                       asv-date-picker asv-date-picker-view-mode="days"
-                       asv-date-picker-min-view-mode="days"
-                       parse-as-number="true">
-                <input class="form-control" id="dateToFilter" type="text" ng-model="dateToFilter"
-                       placeholder="F. fin (dd/mm/yyyy)"
-                       asv-date-picker asv-date-picker-view-mode="days"
-                       asv-date-picker-min-view-mode="days"
-                       parse-as-number="true">
+                <div class="input-group">
+                    <input class="form-control" id="dateFromFilter" type="text" ng-model="dateFromFilter"
+                           placeholder="F. ini (dd/mm/yyyy)"
+                           asv-date-picker asv-date-picker-view-mode="days"
+                           asv-date-picker-min-view-mode="days"
+                           parse-as-number="true">
+                <span class="input-group-btn" style="width: auto">
+                    <button ng-click="dateFromFilter = null" class="btn btn-default" type="button">
+                        <i class="fa fa-times"></i>
+                    </button>
+                    </span>
+                </div>
+                <div class="input-group">
+                    <input class="form-control" id="dateToFilter" type="text" ng-model="dateToFilter"
+                           placeholder="F. fin (dd/mm/yyyy)"
+                           asv-date-picker asv-date-picker-view-mode="days"
+                           asv-date-picker-min-view-mode="days"
+                           parse-as-number="true">
+                <span class="input-group-btn" style="width: auto">
+                    <button ng-click="dateToFilter = null" class="btn btn-default" type="button">
+                        <i class="fa fa-times"></i>
+                    </button>
+                    </span>
+                </div>
             </div>
         </div>
-        <div data-ng-init="init()">
-            <div id="user-table" class="col-xs-12 extranetTable">
-                <table id="users-table"></table>
-            </div>
+    </div>
+    <div data-ng-init="init()">
+        <div id="user-table" class="col-xs-12 extranetTable">
+            <table id="users-table"></table>
         </div>
     </div>
 </div>
