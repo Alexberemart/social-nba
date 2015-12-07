@@ -43,7 +43,7 @@ angular.module('app.Controllers')
                     pageNumber: 1,
                     pageSize: 10,
                     pageList: [10, 25, 50, 100, 200],
-                    toolbar: "#custom-toolbar-invoices",
+                    toolbar: "#custom-toolbar-player-entries",
                     toolbarAlign: "left",
                     queryParams: $scope.addExtraQueryParams,
                     search: true,
