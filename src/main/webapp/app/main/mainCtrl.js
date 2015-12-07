@@ -2,21 +2,28 @@ angular.module('app.Controllers')
     .controller('main',
     function ($scope, $http, $location, $window, $q, $state, urlConstantsFact, $filter) {
 
-        $scope.dateFilter = null;
+        $scope.dateFromFilter = null;
+        $scope.dateToFilter = null;
 
         $scope.addExtraQueryParams = function (params) {
 
-            var dateFilterMilli = 0;
+            var dateFromFilterMilli = 0;
+            var dateToFilterMilli = 0;
 
-            if ($scope.dateFilter != null && $scope.dateFilter != "") {
-                dateFilterMilli = $scope.dateFilter;
+            if ($scope.dateFromFilter != null && $scope.dateFromFilter != "") {
+                dateFromFilterMilli = $scope.dateFromFilter;
             }
 
-            params['dateFilter'] = dateFilterMilli;
+            if ($scope.dateToFilter != null && $scope.dateToFilter != "") {
+                dateToFilterMilli = $scope.dateToFilter;
+            }
+
+            params['dateFromFilter'] = dateFromFilterMilli;
+            params['dateToFilter'] = dateToFilterMilli;
             return params;
         };
 
-        $scope.$watchGroup(['dateFilter'], function (newValue) {
+        $scope.$watchGroup(['dateFromFilter', 'dateToFilter'], function (newValue) {
             if (newValue[0] !== -1) {
                 $('#users-table').bootstrapTable('refresh', {silent: true});
             }
@@ -36,7 +43,7 @@ angular.module('app.Controllers')
                     pageNumber: 1,
                     pageSize: 10,
                     pageList: [10, 25, 50, 100, 200],
-                    toolbar: "#custom-toolbar-invoices",
+                    toolbar: "#custom-toolbar-player-entries",
                     toolbarAlign: "left",
                     queryParams: $scope.addExtraQueryParams,
                     search: true,

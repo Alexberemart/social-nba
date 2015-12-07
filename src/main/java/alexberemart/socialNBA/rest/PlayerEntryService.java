@@ -26,7 +26,8 @@ public class PlayerEntryService extends AbstractRestService {
             @QueryParam("offset") Integer offset,
             @QueryParam("limit") Integer perPage,
             @QueryParam("search") String search,
-            @QueryParam("dateFilter") Long dateFilter
+            @QueryParam("dateFromFilter") Long dateFromFilter,
+            @QueryParam("dateToFilter") Long dateToFilter
     ) throws Exception {
 
         Boolean asc = Boolean.TRUE;
@@ -40,11 +41,15 @@ public class PlayerEntryService extends AbstractRestService {
                 break;
         }
 
-        if (dateFilter == 0){
-            dateFilter = null;
+        if (dateFromFilter == 0){
+            dateFromFilter = null;
         }
 
-        List<PlayerEntry> playerEntries = PlayerEntryServices.getInstance().findWithFiltersPaginated(orderBy, offset, perPage, asc, search, dateFilter);
+        if (dateToFilter == 0){
+            dateToFilter = null;
+        }
+
+        List<PlayerEntry> playerEntries = PlayerEntryServices.getInstance().findWithFiltersPaginated(orderBy, offset, perPage, asc, search, dateFromFilter, dateToFilter);
 
         if (playerEntries == null){
             playerEntries = new ArrayList<>();
@@ -52,7 +57,7 @@ public class PlayerEntryService extends AbstractRestService {
 
         Map<String, Object> result = new HashMap<>();
         result.put("rows", playerEntries);
-        result.put("total", PlayerEntryServices.getInstance().countSearchResults(search, dateFilter));
+        result.put("total", PlayerEntryServices.getInstance().countSearchResults(search, dateFromFilter, dateToFilter));
         return ok(result);
 
     }

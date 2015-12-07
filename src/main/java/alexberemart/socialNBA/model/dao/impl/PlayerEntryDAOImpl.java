@@ -10,7 +10,6 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
-import java.util.Date;
 import java.util.List;
 
 public class PlayerEntryDAOImpl extends GenericHibernateSpringDAOImpl<PlayerEntry, String> implements PlayerEntryDAO {
@@ -20,7 +19,7 @@ public class PlayerEntryDAOImpl extends GenericHibernateSpringDAOImpl<PlayerEntr
     }
 
     @Override
-    public List<PlayerEntry> findWithFiltersPaginated(String orderBy, Integer offset, Integer perPage, Boolean asc, String search, Long dateFilter) {
+    public List<PlayerEntry> findWithFiltersPaginated(String orderBy, Integer offset, Integer perPage, Boolean asc, String search, Long dateFromFilter, Long dateToFilter) {
 
         DetachedCriteria detachedCriteria = DetachedCriteria
                 .forClass(PlayerEntry.class)
@@ -31,8 +30,12 @@ public class PlayerEntryDAOImpl extends GenericHibernateSpringDAOImpl<PlayerEntr
             detachedCriteria.add(Restrictions.like("name", "%" + search + "%"));
         }
 
-        if (dateFilter != null) {
-            detachedCriteria.add(Restrictions.eq("match.date", dateFilter));
+        if (dateFromFilter != null) {
+            detachedCriteria.add(Restrictions.ge("match.date", dateFromFilter));
+        }
+
+        if (dateToFilter != null) {
+            detachedCriteria.add(Restrictions.le("match.date", dateToFilter));
         }
 
         if (StringUtils.isNotBlank(orderBy)) {
@@ -56,7 +59,7 @@ public class PlayerEntryDAOImpl extends GenericHibernateSpringDAOImpl<PlayerEntr
     }
 
     @Override
-    public Number countSearchResultsWithFilters(String search, Long dateFilter) {
+    public Number countSearchResultsWithFilters(String search, Long dateFromFilter, Long dateToFilter) {
         DetachedCriteria detachedCriteria = DetachedCriteria
                 .forClass(PlayerEntry.class)
                 .setProjection(Projections.rowCount())
@@ -67,8 +70,12 @@ public class PlayerEntryDAOImpl extends GenericHibernateSpringDAOImpl<PlayerEntr
             detachedCriteria.add(Restrictions.like("name", "%" + search + "%"));
         }
 
-        if (dateFilter != null) {
-            detachedCriteria.add(Restrictions.eq("match.date", dateFilter));
+        if (dateFromFilter != null) {
+            detachedCriteria.add(Restrictions.ge("match.date", dateFromFilter));
+        }
+
+        if (dateToFilter != null) {
+            detachedCriteria.add(Restrictions.le("match.date", dateToFilter));
         }
 
         Number totalResults;

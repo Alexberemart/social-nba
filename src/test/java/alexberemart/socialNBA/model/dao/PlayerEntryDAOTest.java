@@ -24,6 +24,11 @@ public class PlayerEntryDAOTest extends AbstractTransactionalJUnit4SpringContext
 
     @Test
     public void findWithFiltersPaginated() throws TwitterException, SQLException {
-        playerEntryDAO.findWithFiltersPaginated("", 0, 0, Boolean.FALSE, "", new Long("111"));
+        playerEntryDAO.findWithFiltersPaginated("", 0, 0, Boolean.FALSE, "", new Long("111"), new Long("111"));
+    }
+
+    @Test
+    public void countSearchResultsWithFilters() throws TwitterException, SQLException {
+        playerEntryDAO.countSearchResultsWithFilters("", new Long("111"), new Long("111"));
     }
 }
