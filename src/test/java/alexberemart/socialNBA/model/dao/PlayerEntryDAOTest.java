@@ -1,5 +1,9 @@
 package alexberemart.socialNBA.model.dao;
 
+import alexberemart.socialNBA.model.vo.Match;
+import alexberemart.socialNBA.model.vo.Player;
+import alexberemart.socialNBA.model.vo.PlayerEntry;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +26,30 @@ public class PlayerEntryDAOTest extends AbstractTransactionalJUnit4SpringContext
     @Autowired
     PlayerEntryDAO playerEntryDAO;
 
+    @Autowired
+    MatchDAO matchDAO;
+
+    @Autowired
+    PlayerDAO playerDAO;
+
+    PlayerEntry playerEntry = new PlayerEntry();
+
+    @Before
+    public void setUp(){
+
+        Match match = new Match();
+        match.setIdImported("id");
+        matchDAO.makePersistent(match);
+
+        Player player = new Player();
+        player.setIdImported("id");
+        playerDAO.makePersistent(player);
+
+        playerEntry.setMatch(match);
+        playerEntry.setPlayer(player);
+        playerEntry.setAssists(10);
+    }
+
     @Test
     public void findWithFiltersPaginated() throws TwitterException, SQLException {
         playerEntryDAO.findWithFiltersPaginated("", 0, 0, Boolean.FALSE, "", new Long("111"), new Long("111"));
@@ -30,5 +58,10 @@ public class PlayerEntryDAOTest extends AbstractTransactionalJUnit4SpringContext
     @Test
     public void countSearchResultsWithFilters() throws TwitterException, SQLException {
         playerEntryDAO.countSearchResultsWithFilters("", new Long("111"), new Long("111"));
+    }
+
+    @Test
+    public void makePersistent() throws TwitterException, SQLException {
+        playerEntryDAO.makePersistent(playerEntry);
     }
 }

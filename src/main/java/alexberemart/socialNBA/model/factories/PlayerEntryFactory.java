@@ -1,6 +1,7 @@
-package alexberemart.socialNBA.model.factories.basketReference;
+package alexberemart.socialNBA.model.factories;
 
 import alexberemart.socialNBA.model.vo.Match;
+import alexberemart.socialNBA.model.vo.Player;
 import alexberemart.socialNBA.model.vo.PlayerEntry;
 import alexberemart.socialNBA.model.vo.basketReference.PlayerStats;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +14,9 @@ public class PlayerEntryFactory {
     @Autowired
     NumberFactory numberFactory;
 
-    public PlayerEntry createPlayerEntryFromBasketballReference(PlayerStats playerStats, Match match) {
+    public PlayerEntry createPlayerEntryFromBasketballReference(PlayerStats playerStats, Match match, Player player) {
         PlayerEntry playerEntry = new PlayerEntry();
-        playerEntry.setName(playerStats.getName());
+        playerEntry.setPlayer(player);
         playerEntry.setTimePlayed(minutesFactory.parseToInteger(playerStats.getMinutesPlayed()));
         playerEntry.setPoints(numberFactory.parseToInteger(playerStats.getPoints()));
         playerEntry.setRebounds(numberFactory.parseToInteger(playerStats.getTotalRebounds()));

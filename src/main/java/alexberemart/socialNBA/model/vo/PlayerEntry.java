@@ -17,7 +17,7 @@ import javax.persistence.*;
 public class PlayerEntry extends BaseEntity{
 
     protected Match match;
-    protected String name;
+    protected Player player;
     protected Integer timePlayed;
     protected Integer points;
     protected Integer rebounds;
@@ -34,12 +34,15 @@ public class PlayerEntry extends BaseEntity{
     protected Integer freeThrowAttempts;
     protected Integer ranking;
 
-    public String getName() {
-        return name;
+    @ManyToOne
+    @JoinColumn(name = "playerId", nullable = false)
+    @JsonManagedReference("player")
+    public Player getPlayer() {
+        return player;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 
     public Integer getTimePlayed() {

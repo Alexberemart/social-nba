@@ -6,6 +6,7 @@ public class PlayerStats {
 
     protected ReadingAttributeState state;
 
+    protected String playerKey;
     protected String name;
     protected String minutesPlayed;
     protected String fieldGoals;
@@ -27,6 +28,14 @@ public class PlayerStats {
     protected String personalFouls;
     protected String points;
     protected String plusMinus;
+
+    public String getPlayerKey() {
+        return playerKey;
+    }
+
+    public void setPlayerKey(String playerKey) {
+        this.playerKey = playerKey;
+    }
 
     public String getName() {
         return name;
