@@ -76,7 +76,7 @@ angular.module('app.Controllers')
                     },
                     columns: [
                         {
-                            field: 'name',
+                            field: 'player.name',
                             title: 'Nombre completo',
                             visible: true,
                             sortable: true
