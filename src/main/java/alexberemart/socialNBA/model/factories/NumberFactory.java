@@ -1,4 +1,4 @@
-package alexberemart.socialNBA.model.factories.basketReference;
+package alexberemart.socialNBA.model.factories;
 
 public class NumberFactory {
 
