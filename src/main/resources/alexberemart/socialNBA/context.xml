@@ -178,6 +178,30 @@
         </property>
     </bean>
 
+    <bean id="playerDAO"
+          class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager">
+            <ref bean="transactionManagerSocialNBA"/>
+        </property>
+        <property name="target">
+            <ref local="playerDAOTarget"/>
+        </property>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="makePersistent">PROPAGATION_REQUIRED</prop>
+                <prop key="find*">PROPAGATION_REQUIRED, readOnly</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="playerDAOTarget"
+          class="alexberemart.socialNBA.model.dao.impl.PlayerDAOImpl">
+        <qualifier value="target"/>
+        <property name="hibernateTemplate">
+            <ref bean="hibernateTemplateSocialNBA"/>
+        </property>
+    </bean>
+
     <bean id="restServiceLogDAO"
           class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
         <property name="transactionManager" ref="transactionManagerSocialNBA"/>
@@ -202,14 +226,16 @@
     <bean id="basketReferenceServices" class="alexberemart.socialNBA.services.basketReference.BasketReferenceServices"/>
     <bean id="playerEntryServices" class="alexberemart.socialNBA.services.PlayerEntryServices"/>
     <bean id="matchServices" class="alexberemart.socialNBA.services.MatchServices"/>
+    <bean id="playerServices" class="alexberemart.socialNBA.services.PlayerServices"/>
     <bean id="restServiceLogServices" class="alexberemart.socialNBA.services.RestServiceLogServices"/>
 
     <!-- FACTORIES -->
     <bean id="twitFactory" class="alexberemart.socialNBA.model.factories.TwitFactory"/>
-    <bean id="playerEntryFactory" class="alexberemart.socialNBA.model.factories.basketReference.PlayerEntryFactory"/>
+    <bean id="playerEntryFactory" class="alexberemart.socialNBA.model.factories.PlayerEntryFactory"/>
     <bean id="matchFactory" class="alexberemart.socialNBA.model.factories.MatchFactory"/>
-    <bean id="minutesFactory" class="alexberemart.socialNBA.model.factories.basketReference.MinutesFactory"/>
-    <bean id="numberFactory" class="alexberemart.socialNBA.model.factories.basketReference.NumberFactory"/>
+    <bean id="playerFactory" class="alexberemart.socialNBA.model.factories.PlayerFactory"/>
+    <bean id="minutesFactory" class="alexberemart.socialNBA.model.factories.MinutesFactory"/>
+    <bean id="numberFactory" class="alexberemart.socialNBA.model.factories.NumberFactory"/>
 
     <bean id="oauthCredentials" class="alexberemart.socialNBA.model.vo.OauthCredentials">
         <property name="consumerKey" value="${oauth.consumerKey}"/>

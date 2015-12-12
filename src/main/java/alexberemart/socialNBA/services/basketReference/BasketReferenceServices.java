@@ -81,6 +81,11 @@ public class BasketReferenceServices {
                     .select("tr:not(.no_ranker)");
             for (Element rowElement : rowElements) {
                 PlayerStats playerStats = new PlayerStats();
+                playerStats.setPlayerKey(rowElement.select("a")
+                        .get(0)
+                        .attr("href")
+                        .split("/")[3]
+                        .split("\\.")[0]);
                 playerStats.setState(new ReadingMinutesState());
                 Element nameCellElement = rowElement.select("td")
                         .select("[align=left]")
