@@ -10,6 +10,9 @@ angular.module('app.Factory')
         //var prefix = 'http://alexberemart.synology.me:8080/HT/Services';
 
         return{
+            GET_JOB_OPTIONS_URL: function () {
+                return prefix + '/job-options';
+            },
             GET_PLAYER_TWITS_COUNT: function () {
                 return prefix + '/Twit/getPlayerTwitsCount';
             },
@@ -18,6 +21,9 @@ angular.module('app.Factory')
             },
             GET_ALL_REST_SERVICE_LOG: function () {
                 return prefix + '/restServiceLog';
+            },
+            GET_ALL_JOBS: function () {
+                return prefix + '/job';
             }
         };
     });

@@ -43,6 +43,20 @@ angular.module('myApp', [ 'ui.router', 'app.Controllers', 'app.Factory', 'app.Di
                     }
                 }
             })
+            .state('dashboard.jobs', {
+                url: '/jobs',
+                views: {
+                    dashboardContent: {
+                        templateUrl: 'app/job/job.html',
+                        controller: 'job'
+                    }
+                },
+                resolve: {
+                    options: function (jobOptions) {
+                        return jobOptions.getOptions();
+                    }
+                }
+            })
     }])
 
     .config(['$urlRouterProvider', '$httpProvider', function ($urlRouterProvider) {
