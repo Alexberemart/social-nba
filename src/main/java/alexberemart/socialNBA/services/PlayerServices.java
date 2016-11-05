@@ -1,6 +1,6 @@
 package alexberemart.socialNBA.services;
 
-import Alexberemart.core.util.ApplicationContextProvider;
+import com.alexberemart.core.util.ApplicationContextProvider;
 import alexberemart.socialNBA.model.dao.PlayerDAO;
 import alexberemart.socialNBA.model.factories.PlayerFactory;
 import alexberemart.socialNBA.model.vo.Player;

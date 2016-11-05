@@ -1,6 +1,6 @@
 package alexberemart.socialNBA.rest;
 
-import Alexberemart.core.rest.AbstractRestService;
+import com.alexberemart.core.rest.AbstractRestService;
 import alexberemart.socialNBA.model.vo.RestServiceLog;
 import alexberemart.socialNBA.services.PlayerEntryServices;
 import alexberemart.socialNBA.services.RestServiceLogServices;

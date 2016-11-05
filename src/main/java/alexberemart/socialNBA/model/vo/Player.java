@@ -1,6 +1,6 @@
 package alexberemart.socialNBA.model.vo;
 
-import Alexberemart.core.model.vo.base.BaseEntity;
+import com.alexberemart.core.model.vo.base.BaseEntity;
 import org.codehaus.jackson.annotate.JsonBackReference;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;

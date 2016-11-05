@@ -1,5 +1,6 @@
 package alexberemart.socialNBA.model.dao;
 
+import alexberemart.socialNBA.SocialNbaMedalsTest;
 import alexberemart.socialNBA.model.enums.JobType;
 import alexberemart.socialNBA.model.vo.Job;
 import alexberemart.socialNBA.model.vo.JobParameter;
@@ -14,12 +15,7 @@ import twitter4j.TwitterException;
 
 import java.sql.SQLException;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({
-        "classpath:/alexberemart/socialNBA/context.xml",
-        "classpath:/alexberemart/socialNBA/testContext.xml"
-})
-public class JobDAOTest extends AbstractTransactionalJUnit4SpringContextTests {
+public class JobDAOTest extends SocialNbaMedalsTest {
 
     @Autowired
     JobDAO jobDAO;

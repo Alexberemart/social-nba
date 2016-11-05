@@ -1,6 +1,6 @@
 package alexberemart.socialNBA.model.vo;
 
-import Alexberemart.core.model.vo.base.BaseEntity;
+import com.alexberemart.core.model.vo.base.BaseEntity;
 import alexberemart.socialNBA.model.enums.JobType;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonManagedReference;

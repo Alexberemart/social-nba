@@ -1,6 +1,6 @@
 package alexberemart.socialNBA.model.dao.impl;
 
-import Alexberemart.core.model.dao.base.hibernate.spring.impl.GenericHibernateSpringDAOImpl;
+import com.alexberemart.core.model.dao.base.hibernate.spring.impl.GenericHibernateSpringDAOImpl;
 import alexberemart.socialNBA.model.dao.PlayerDAO;
 import alexberemart.socialNBA.model.vo.Player;
 import org.hibernate.criterion.DetachedCriteria;

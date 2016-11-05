@@ -1,6 +1,6 @@
 package alexberemart.socialNBA.model.vo;
 
-import Alexberemart.core.model.vo.base.BaseEntity;
+import com.alexberemart.core.model.vo.base.BaseEntity;
 
 import javax.persistence.Table;
 import java.util.Date;

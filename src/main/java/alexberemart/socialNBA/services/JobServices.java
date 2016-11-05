@@ -1,12 +1,14 @@
 package alexberemart.socialNBA.services;
 
-import Alexberemart.core.util.ApplicationContextProvider;
+import com.alexberemart.core.util.ApplicationContextProvider;
 import alexberemart.socialNBA.model.dao.JobDAO;
 import alexberemart.socialNBA.model.vo.Job;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class JobServices {
 
     @Autowired

@@ -1,6 +1,6 @@
 package alexberemart.socialNBA.services;
 
-import Alexberemart.core.util.ApplicationContextProvider;
+import com.alexberemart.core.util.ApplicationContextProvider;
 import alexberemart.socialNBA.model.dao.RestServiceLogDAO;
 import alexberemart.socialNBA.model.vo.RestServiceLog;
 import org.springframework.beans.factory.annotation.Autowired;

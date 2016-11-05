@@ -1,6 +1,6 @@
 package alexberemart.socialNBA.rest;
 
-import Alexberemart.core.rest.AbstractRestService;
+import com.alexberemart.core.rest.AbstractRestService;
 import alexberemart.socialNBA.model.enums.JobType;
 import com.google.inject.servlet.RequestScoped;
 

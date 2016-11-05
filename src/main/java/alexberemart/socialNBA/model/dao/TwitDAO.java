@@ -1,6 +1,6 @@
 package alexberemart.socialNBA.model.dao;
 
-import Alexberemart.core.model.dao.base.hibernate.GenericHibernateDAO;
+import com.alexberemart.core.model.dao.base.hibernate.GenericHibernateDAO;
 import alexberemart.socialNBA.model.vo.Twit;
 
 import java.util.List;

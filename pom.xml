@@ -16,9 +16,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.Alexberemart</groupId>
+            <groupId>com.alexberemart</groupId>
             <artifactId>core</artifactId>
-            <version>1.0.0</version>
+            <version>1.1.0</version>
         </dependency>
         <dependency>
             <groupId>org.twitter4j</groupId>
@@ -61,7 +61,7 @@
     </dependencies>
 
     <build>
-        <finalName>socialNBA</finalName>
+        <finalName>social-nba</finalName>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
@@ -82,6 +82,9 @@
                         <additionalClasspathElement>src/main/resources</additionalClasspathElement>
                         <additionalClasspathElement>src/test/java</additionalClasspathElement>
                     </additionalClasspathElements>
+                    <systemPropertyVariables>
+                        <environment>test</environment>
+                    </systemPropertyVariables>
                 </configuration>
             </plugin>
             <plugin>

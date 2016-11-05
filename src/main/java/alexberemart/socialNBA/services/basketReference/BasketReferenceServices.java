@@ -1,6 +1,6 @@
 package alexberemart.socialNBA.services.basketReference;
 
-import Alexberemart.core.util.ApplicationContextProvider;
+import com.alexberemart.core.util.ApplicationContextProvider;
 import alexberemart.socialNBA.model.vo.basketReference.Match;
 import alexberemart.socialNBA.model.vo.basketReference.PlayerStats;
 import alexberemart.socialNBA.model.vo.basketReference.TeamStats;

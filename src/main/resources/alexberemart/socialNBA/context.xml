@@ -7,11 +7,11 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
                            http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 
-    <import resource="classpath:/Alexberemart/core/context.xml"/>
+    <import resource="classpath:com/alexberemart/core/context.xml"/>
 
     <!-- Allows us to use system properties as variables in this configuration
        file -->
-    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <bean class="com.alexberemart.core.config.AlexberemartPropertyPlaceholderConfigurer">
         <property name="ignoreUnresolvablePlaceholders" value="true"/>
         <property name="order" value="0"/>
         <property name="locations">
@@ -220,6 +220,30 @@
           class="alexberemart.socialNBA.model.dao.impl.RestServiceLogDAOImpl">
         <qualifier value="target"/>
         <property name="hibernateTemplate" ref="hibernateTemplateSocialNBA"/>
+    </bean>
+
+    <bean id="jobDAO"
+          class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager">
+            <ref bean="transactionManagerSocialNBA"/>
+        </property>
+        <property name="target">
+            <ref local="jobDAOTarget"/>
+        </property>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="makePersistent">PROPAGATION_REQUIRED</prop>
+                <prop key="find*">PROPAGATION_REQUIRED, readOnly</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="jobDAOTarget"
+          class="alexberemart.socialNBA.model.dao.impl.JobDAOImpl">
+        <qualifier value="target"/>
+        <property name="hibernateTemplate">
+            <ref bean="hibernateTemplateSocialNBA"/>
+        </property>
     </bean>
 
     <bean id="twitServices" class="alexberemart.socialNBA.services.TwitServices"/>

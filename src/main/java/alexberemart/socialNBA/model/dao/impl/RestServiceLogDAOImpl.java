@@ -1,7 +1,7 @@
 package alexberemart.socialNBA.model.dao.impl;
 
-import Alexberemart.core.model.dao.base.hibernate.spring.impl.GenericHibernateSpringDAOImpl;
-import Alexberemart.core.util.StringUtils;
+import com.alexberemart.core.model.dao.base.hibernate.spring.impl.GenericHibernateSpringDAOImpl;
+import com.alexberemart.core.util.StringUtils;
 import alexberemart.socialNBA.model.dao.RestServiceLogDAO;
 import alexberemart.socialNBA.model.vo.RestServiceLog;
 import alexberemart.socialNBA.util.IntegerUtils;

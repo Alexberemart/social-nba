@@ -1,6 +1,6 @@
 package alexberemart.socialNBA.model.dao.impl;
 
-import Alexberemart.core.model.dao.base.hibernate.spring.impl.GenericHibernateSpringDAOImpl;
+import com.alexberemart.core.model.dao.base.hibernate.spring.impl.GenericHibernateSpringDAOImpl;
 import alexberemart.socialNBA.model.dao.PlayerEntryDAO;
 import alexberemart.socialNBA.model.vo.PlayerEntry;
 import org.apache.commons.lang3.StringUtils;
